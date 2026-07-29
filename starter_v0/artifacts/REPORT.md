@@ -67,7 +67,7 @@ Fill from `artifacts/version_log.csv` and `runs/*.json`.
 | Version | Prompt/tool change | Hypothesis | Metric name | Before | After | Run File |
 | ------- | ------------------ | ---------- | ----------- | -----: | ----: | -------- |
 | v0      | baseline           | Baseline initial setup | case_accuracy | 0.00 | 0.90 | `runs/v0_B_base_openai_20260729T100558112616.json` |
-| v1      |                    |            |             |        |       |          |
+| v1      | Thêm Section 6 Guardrails vào `system_prompt.md`; siết rule Parallel Execution (chỉ gọi cả 2 khi user nói rõ cả 2 nguồn); thêm Query keyword rule (extract keyword ngắn, bỏ filler); mô tả `tools.yaml` chi tiết hơn với routing hints | Siết rule sẽ fix R03 (model tự gọi thêm `social_search`) và R13 (query bị dịch sang tiếng Việt) → đạt 100% | case_accuracy | 0.90 | 1.00 | `runs/v0_B_base_openai_20260729T122405629969.json` |
 | v2      |                    |            |             |        |       |          |
 | v3      |                    |            |             |        |       |          |
 
@@ -77,8 +77,8 @@ Use actual failures from `results[*].result.failures`.
 
 | Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
 | ------- | ------------ | ----------------- | ----------- | --- |
-| R03_web_news_routing | wrong_tool | `lookup`, `social_search` | Model tự ý gọi thêm tool `social_search` (Twitter) khi user chỉ hỏi tìm tin tức AI chung trên web | Cập nhật `system_prompt.md` quy định rõ không tự ý gọi thêm `social_search` khi tra cứu tin tức web chung |
-| M06_switch_tool | wrong_tool | `lookup`, `social_search` | Model không bỏ tool `social_search` khi user yêu cầu "Bỏ Twitter, chuyển sang tìm trên web tin tức đi" | Thêm quy tắc xử lý ngữ cảnh multiturn trong `system_prompt.md` để hủy tool cũ khi user chuyển nguồn |
+| R03_web_news_routing | wrong_tool (`extra_tool_call`) | `lookup` ✅ + `social_search` ❌ | User chỉ hỏi tin web (`"Tin tức AI hôm nay"`), model tự ý gọi thêm `social_search` vì cho rằng "nổi bật" = cần Twitter | Siết rule Parallel Execution: chỉ gọi cả 2 khi user **nói rõ** cả 2 nguồn; thêm ví dụ phản ví dụ trực tiếp trong prompt |
+| R13_parallel_web_and_tweets | wrong_tool (`wrong_arg_value`) | `lookup(query="tin tức AI")` ❌ | Model dịch câu user sang tiếng Việt đầy đủ thay vì extract keyword ngắn gọn: expected `query="AI"`, got `query="tin tức AI"` | Thêm **Query keyword rule**: luôn extract keyword tiếng Anh ngắn nhất, bỏ filler words như "tin tức", "hôm nay", "mới nhất" |
 
 ## B3. Team eval cases
 
