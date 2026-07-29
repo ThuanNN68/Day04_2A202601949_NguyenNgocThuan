@@ -44,13 +44,13 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 | clarify       | Hỏi lại người dùng khi thiếu thông tin hoặc yêu cầu chưa rõ ràng                         | Không                 |
 | timeline      | Lấy các bài đăng gần đây từ một tài khoản Twitter/X cụ thể theo @handle (qua RapidAPI)  | Không                 |
 | social_search | Tìm kiếm bài đăng theo từ khóa/hashtag trên Twitter/X                                         | Không                 |
-| lookup        | Tìm kiếm thông tin trên web qua Tavily (hỗ trợ lọc tin tức, general, theo khoảng thời gian) | Không                 |
-| fetch         | Đọc toàn bộ nội dung của một URL cụ thể qua Firecrawl                                        | Không                 |
+| lookup        | Tìm kiếm thông tin trên web qua Tavily (hỗ trợ lọc tin tức, general, theo khoảng thời gian) | Có                    |
+| fetch         | Đọc toàn bộ nội dung của một URL cụ thể qua Firecrawl                                        | Có                    |
 | format        | Định dạng danh sách nội dung đã thu thập thành bản digest/newsletter markdown               | Không                 |
 | send          | Gửi tin nhắn văn bản đến kênh Telegram (cần xác nhận người dùng trước khi gửi)        | Không                 |
 | policy        | Tìm kiếm tài liệu chính sách nội bộ công ty theo chủ đề                                   | Không                 |
-| papers        | Tìm kiếm bài báo khoa học/preprint trên arXiv theo từ khóa                                    | Không                 |
-| paper_text    | Tải PDF bài báo arXiv và trích xuất toàn bộ nội dung text để đọc/phân tích             | Không                 |
+| papers        | Tìm kiếm bài báo khoa học/preprint trên arXiv theo từ khóa                                    | Có                    |
+| paper_text    | Tải PDF bài báo arXiv và trích xuất toàn bộ nội dung text để đọc/phân tích             | Có                    |
 | paper_review  | Phân tích và đánh giá bài báo từ text thô (Abstract, Methodology, Results, Limitations)     | Có                    |
 | paper_compare | So sánh side-by-side từ 2–10 bài báo theo các tiêu chí: methodology, results, limitations…   | Có                    |
 
