@@ -179,7 +179,11 @@ def _call_agent(user_input: str, config: dict) -> dict[str, Any]:
 
     system_prompt = system_prompt_path.read_text(encoding="utf-8")
     tool_declarations = load_tool_declarations(tools_path)
-    openai_tools = to_openai_tools(tool_declarations)
+    
+    # Chỉ giữ lại 3 tool được yêu cầu: papers, paper_review, paper_compare
+    allowed_tool_names = {"papers", "paper_review", "paper_compare"}
+    filtered_declarations = [td for td in tool_declarations if td["name"] in allowed_tool_names]
+    openai_tools = to_openai_tools(filtered_declarations)
     
     artifact_version = build_artifact_version(config["version"], system_prompt_path, tools_path)
 
