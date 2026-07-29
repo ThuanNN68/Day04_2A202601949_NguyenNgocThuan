@@ -10,12 +10,14 @@
 - Team: B07
 - Members: Phạm Đức Thiện, Nguyễn Ngọc Thuận, Trần Công Chiến, Phạm Khắc Duy
 
-| Mã sinh viên | Họ và Tên       | Role                                                                               |
-| -------------- | ------------------ | ---------------------------------------------------------------------------------- |
-|                | Trần Công Chiến | Leader, Nhiệm vụ xác định bài toán, điều phối team, xây dựng phần UI. |
-|                |                    |                                                                                    |
+| Mã sinh viên | Họ và Tên         | Role                                                                               |
+| -------------- | -------------------- | ---------------------------------------------------------------------------------- |
+| 2A202601053    | Trần Công Chiến   | Leader, Nhiệm vụ xác định bài toán, điều phối team, xây dựng phần UI. |
+| 2A202601981    | Phạm Đức Thiện   | Viết system prompt, report                                                        |
+| 2A202601757    | Phạm Khắc Duy      | viết test_eval                                                                    |
+| 2A202601949    | Nguyễn Ngọc Thuận | viết tool                                                                         |
 
-- Provider/model:
+- Provider/model: openai
 
 ---
 
@@ -37,11 +39,20 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 
 > Liệt kê các tool agent đang dùng. Mỗi tool 1 dòng: tên + làm được gì.
 
-| Tên tool | Làm được gì                              | Tool mới nhóm thêm? |
-| --------- | --------------------------------------------- | ---------------------- |
-| clarify   | hỏi lại người dùng khi thiếu thông tin | không                 |
-|           |                                               |                        |
-|           |                                               |                        |
+| Tên tool     | Làm được gì                                                                                      | Tool mới nhóm thêm? |
+| ------------- | ----------------------------------------------------------------------------------------------------- | ---------------------- |
+| clarify       | Hỏi lại người dùng khi thiếu thông tin hoặc yêu cầu chưa rõ ràng                         | Không                 |
+| timeline      | Lấy các bài đăng gần đây từ một tài khoản Twitter/X cụ thể theo @handle (qua RapidAPI)  | Không                 |
+| social_search | Tìm kiếm bài đăng theo từ khóa/hashtag trên Twitter/X                                         | Không                 |
+| lookup        | Tìm kiếm thông tin trên web qua Tavily (hỗ trợ lọc tin tức, general, theo khoảng thời gian) | Không                 |
+| fetch         | Đọc toàn bộ nội dung của một URL cụ thể qua Firecrawl                                        | Không                 |
+| format        | Định dạng danh sách nội dung đã thu thập thành bản digest/newsletter markdown               | Không                 |
+| send          | Gửi tin nhắn văn bản đến kênh Telegram (cần xác nhận người dùng trước khi gửi)        | Không                 |
+| policy        | Tìm kiếm tài liệu chính sách nội bộ công ty theo chủ đề                                   | Không                 |
+| papers        | Tìm kiếm bài báo khoa học/preprint trên arXiv theo từ khóa                                    | Không                 |
+| paper_text    | Tải PDF bài báo arXiv và trích xuất toàn bộ nội dung text để đọc/phân tích             | Không                 |
+| paper_review  | Phân tích và đánh giá bài báo từ text thô (Abstract, Methodology, Results, Limitations)     | Có                    |
+| paper_compare | So sánh side-by-side từ 2–10 bài báo theo các tiêu chí: methodology, results, limitations…   | Có                    |
 
 ## A3. Câu hỏi mẫu để thử
 
@@ -70,21 +81,21 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 
 Fill from `artifacts/version_log.csv` and `runs/*.json`.
 
-| Version | Prompt/tool change | Hypothesis | Metric name | Before | After | Run File |
-| ------- | ------------------ | ---------- | ----------- | -----: | ----: | -------- |
-| v0      | baseline           | Baseline initial setup | case_accuracy | 0.00 | 0.90 | `runs/v0_B_base_openai_20260729T100558112616.json` |
-| v1      | Thêm Section 6 Guardrails vào `system_prompt.md`; siết rule Parallel Execution (chỉ gọi cả 2 khi user nói rõ cả 2 nguồn); thêm Query keyword rule (extract keyword ngắn, bỏ filler); mô tả `tools.yaml` chi tiết hơn với routing hints | Siết rule sẽ fix R03 (model tự gọi thêm `social_search`) và R13 (query bị dịch sang tiếng Việt) → đạt 100% | case_accuracy | 0.90 | 1.00 | `runs/v0_B_base_openai_20260729T122405629969.json` |
-| v2      |                    |            |             |        |       |          |
-| v3      |                    |            |             |        |       |          |
+| Version | Prompt/tool change                                                                                                                                                                                                                                          | Hypothesis                                                                                                               | Metric name   | Before | After | Run File                                             |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------- | -----: | ----: | ---------------------------------------------------- |
+| v0      | baseline                                                                                                                                                                                                                                                    | Baseline initial setup                                                                                                   | case_accuracy |   0.00 |  0.90 | `runs/v0_B_base_openai_20260729T100558112616.json` |
+| v1      | Thêm Section 6 Guardrails vào`system_prompt.md`; siết rule Parallel Execution (chỉ gọi cả 2 khi user nói rõ cả 2 nguồn); thêm Query keyword rule (extract keyword ngắn, bỏ filler); mô tả `tools.yaml` chi tiết hơn với routing hints | Siết rule sẽ fix R03 (model tự gọi thêm`social_search`) và R13 (query bị dịch sang tiếng Việt) → đạt 100% | case_accuracy |   0.90 |  1.00 | `runs/v_B_base_openai_20260729T122405629969.json`  |
+| v2      | Thêm tool bonus `paper_review` và `paper_compare` vào `tools.yaml`; bổ sung routing rules cho 2 tool mới trong `system_prompt.md` (`papers` → `paper_text` → `paper_review` → `paper_compare`) | Thêm tool mới sẽ mở rộng khả năng research pipeline nhưng có thể gây `extra_tool_call` ở M06 khi model chọn sai tool | case_accuracy |   1.00 |  0.95 | `runs/v2_B_base_openai_20260729T124652257529.json` |
+| v3      |                                                                                                                                                                                                                                                             |                                                                                                                          |               |        |       |                                                      |
 
 ## B2. Failure analysis
 
 Use actual failures from `results[*].result.failures`.
 
-| Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
-| ------- | ------------ | ----------------- | ----------- | --- |
-| R03_web_news_routing | wrong_tool (`extra_tool_call`) | `lookup` ✅ + `social_search` ❌ | User chỉ hỏi tin web (`"Tin tức AI hôm nay"`), model tự ý gọi thêm `social_search` vì cho rằng "nổi bật" = cần Twitter | Siết rule Parallel Execution: chỉ gọi cả 2 khi user **nói rõ** cả 2 nguồn; thêm ví dụ phản ví dụ trực tiếp trong prompt |
-| R13_parallel_web_and_tweets | wrong_tool (`wrong_arg_value`) | `lookup(query="tin tức AI")` ❌ | Model dịch câu user sang tiếng Việt đầy đủ thay vì extract keyword ngắn gọn: expected `query="AI"`, got `query="tin tức AI"` | Thêm **Query keyword rule**: luôn extract keyword tiếng Anh ngắn nhất, bỏ filler words như "tin tức", "hôm nay", "mới nhất" |
+| Case ID                     | Failure Type                     | Actual Tool Calls                    | What Failed                                                                                                                                 | Fix                                                                                                                                          |
+| --------------------------- | -------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| R03_web_news_routing        | wrong_tool (`extra_tool_call`) | `lookup` ✅ + `social_search` ❌ | User chỉ hỏi tin web (`"Tin tức AI hôm nay"`), model tự ý gọi thêm `social_search` vì cho rằng "nổi bật" = cần Twitter     | Siết rule Parallel Execution: chỉ gọi cả 2 khi user**nói rõ** cả 2 nguồn; thêm ví dụ phản ví dụ trực tiếp trong prompt |
+| R13_parallel_web_and_tweets | wrong_tool (`wrong_arg_value`) | `lookup(query="tin tức AI")` ❌   | Model dịch câu user sang tiếng Việt đầy đủ thay vì extract keyword ngắn gọn: expected`query="AI"`, got `query="tin tức AI"` | Thêm**Query keyword rule**: luôn extract keyword tiếng Anh ngắn nhất, bỏ filler words như "tin tức", "hôm nay", "mới nhất"  |
 
 ## B3. Team eval cases
 
