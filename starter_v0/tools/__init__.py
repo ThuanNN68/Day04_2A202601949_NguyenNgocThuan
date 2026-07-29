@@ -15,7 +15,9 @@ from .fetch.tool import read_url
 from .format.tool import render_digest
 from .policy.tool import search_company_policy
 from .social_search.tool import search_tweets
-from .send.tool import send_telegram
+from .paper_compare.tool import compare_papers
+from .paper_review.tool import review_paper_text
+from .calculator.tool import calculate
 from .lookup.tool import web_search
 
 
@@ -31,10 +33,13 @@ TOOL_FUNCTIONS = {
     "lookup": web_search,
     "fetch": read_url,
     "format": render_digest,
-    "send": send_telegram,
+
     "policy": search_company_policy,
     "papers": arxiv_search,
     "paper_text": get_arxiv_paper_text,
+    "paper_compare": compare_papers,
+    "paper_review": review_paper_text,
+    "calculator": calculate,
 }
 
 
