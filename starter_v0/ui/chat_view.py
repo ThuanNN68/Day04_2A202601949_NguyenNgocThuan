@@ -156,55 +156,56 @@ def render_chat_tab(config: dict) -> None:
 
 def _call_agent(user_input: str, config: dict) -> dict[str, Any]:
     """
-    Gọi agent và trả về kết quả.
-
-    TODO: Thay mock bằng logic thật:
-        1. Khởi tạo provider từ config["provider"]
-        2. Load system_prompt và tools từ artifacts/
-        3. Gọi run_model_tool_loop() từ chat.py
-        4. Lưu transcript vào transcripts/
-        5. Return result dict
-
-    Ví dụ tích hợp:
-        from env_loader import load_lab_env
-        from providers import make_provider
-        from tools import load_tool_declarations, to_openai_tools
-        from chat import run_model_tool_loop, trim_history, write_transcript
-        from versioning import build_artifact_version
-        from pathlib import Path
-
-        ROOT = Path(__file__).parent.parent
-        load_lab_env(ROOT)
-
-        provider = make_provider(config["provider"])
-        tool_declarations = load_tool_declarations(ROOT / "artifacts" / "tools.yaml")
-        openai_tools = to_openai_tools(tool_declarations)
-        system_prompt = (ROOT / "artifacts" / "system_prompt.md").read_text()
-
-        history = st.session_state.get("chat_raw_history", [])
-        messages = [
-            {"role": "system", "content": system_prompt},
-            *trim_history(history, config["history_window"]),
-            {"role": "user", "content": user_input},
-        ]
-
-        result = run_model_tool_loop(
-            provider=provider,
-            messages=messages,
-            tools=openai_tools,
-            model=config["model"],
-            max_tool_rounds=config["max_tool_rounds"],
-        )
-
-        # Update history
-        st.session_state.chat_raw_history = history + [
-            {"role": "user", "content": user_input},
-            {"role": "assistant", "content": result["assistant_text"]},
-        ]
-
-        # TODO: write_transcript(transcript_path, transcript)
-
-        return result
+    Gọi agent và thực thi loop thật tương tự chat.py
     """
-    from .mock_data import get_mock_agent_response
-    return get_mock_agent_response(user_input)
+    from env_loader import load_lab_env
+    from providers import make_provider
+    from tools import load_tool_declarations, to_openai_tools
+    from chat import run_model_tool_loop, trim_history
+    from pathlib import Path
+
+    ROOT = Path(__file__).parent.parent
+    load_lab_env(ROOT)
+
+    # 1. Khởi tạo provider & model
+    provider = make_provider(config["provider"])
+    selected_model = config["model"] or getattr(provider, "default_model", None)
+
+    # 2. Đọc file prompt & tools hiện tại
+    system_prompt_path = ROOT / "artifacts" / "system_prompt.md"
+    tools_path = ROOT / "artifacts" / "tools.yaml"
+
+    system_prompt = system_prompt_path.read_text(encoding="utf-8")
+    tool_declarations = load_tool_declarations(tools_path)
+    openai_tools = to_openai_tools(tool_declarations)
+
+    # 3. Chuẩn bị message history
+    if "chat_raw_history" not in st.session_state:
+        st.session_state.chat_raw_history = []
+    
+    history = st.session_state.chat_raw_history
+    messages = [
+        {"role": "system", "content": system_prompt},
+        *trim_history(history, config["history_window"]),
+        {"role": "user", "content": user_input},
+    ]
+
+    # 4. Chạy loop gọi LLM và chạy tool thật
+    result = run_model_tool_loop(
+        provider=provider,
+        messages=messages,
+        tools=openai_tools,
+        model=selected_model,
+        max_tool_rounds=config["max_tool_rounds"],
+    )
+
+    # 5. Lưu lại lịch sử chat thô phục vụ context turn sau
+    st.session_state.chat_raw_history = history + [
+        {"role": "user", "content": user_input},
+        {"role": "assistant", "content": result["assistant_text"]},
+    ]
+
+    # TODO: Khi cần lưu transcript thành file JSON để tab Transcript có thể đọc được:
+    # Bạn có thể gọi thêm logic của write_transcript(...) giống trong chat.py tại đây.
+
+    return result
