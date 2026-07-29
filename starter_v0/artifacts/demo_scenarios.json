@@ -1,0 +1,45 @@
+[
+    {
+        "scenario_name": "Kịch bản 1: Tìm kiếm & Đọc nội dung bài báo khoa học",
+        "turns": [
+            {
+                "label": "Turn 1: Tìm papers về RAG",
+                "query": "Tìm 5 bài báo arXiv mới nhất liên quan đến RAG evaluation."
+            },
+            {
+                "label": "Turn 2: Trích xuất nội dung paper",
+                "query": "Đọc nội dung của bài báo arXiv:1706.03762 (Attention Is All You Need) trang đầu tiên."
+            }
+        ]
+    },
+    {
+        "scenario_name": "Kịch bản 2: Đánh giá chi tiết bài báo chuyên sâu (Sử dụng Tool mới: paper_review)",
+        "turns": [
+            {
+                "label": "Turn 1: Tải text bài báo",
+                "query": "Tải text của bài báo arXiv:1706.03762 để tôi phân tích."
+            },
+            {
+                "label": "Turn 2: Đánh giá Methodology",
+                "query": "Hãy chạy công cụ đánh giá chi tiết (paper_review) phần Phương pháp (methodology) của bài báo này."
+            }
+        ]
+    },
+    {
+        "scenario_name": "Kịch bản 3: So sánh side-by-side các bài báo (Sử dụng Tool mới: paper_compare)",
+        "turns": [
+            {
+                "label": "Turn 1: Tải text bài báo 1",
+                "query": "Hãy tải nội dung văn bản của bài báo arXiv:1706.03762."
+            },
+            {
+                "label": "Turn 2: Tải text bài báo 2",
+                "query": "Hãy tải thêm nội dung văn bản của bài báo arXiv:2212.08073."
+            },
+            {
+                "label": "Turn 3: Tiến hành so sánh",
+                "query": "So sánh 2 bài báo này dựa trên các tiêu chí: methodology và limitations."
+            }
+        ]
+    }
+]
