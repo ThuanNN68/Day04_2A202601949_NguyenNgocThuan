@@ -1,0 +1,34 @@
+{
+  "transcript_id": "v0_openai_20260729T121401096358",
+  "version": "v0",
+  "artifact_version": "v0+p8d01e7092893+tadb9a791a51f",
+  "prompt_hash": "8d01e709289326f6bb05859a5bd716d6465376869860be9249d76e71a8490ae1",
+  "tools_hash": "adb9a791a51fd53e0f4080fc00ae4aab15eba933d20bd774142d5e08ed6dcdb1",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/data/vinai/labs/Day04_2A202601949_NguyenNgocThuan/starter_v0/artifacts/system_prompt.md",
+  "tools": "/data/vinai/labs/Day04_2A202601949_NguyenNgocThuan/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T12:14:01",
+  "updated_at": "2026-07-29T12:14:01",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T12:14:01",
+      "user": "bạn có thể dùng tool gì? ",
+      "ended_at": "2026-07-29T12:14:01",
+      "status": "answered",
+      "assistant_text": "Tôi có thể sử dụng các công cụ để tìm kiếm thông tin trên web, truy xuất bài viết khoa học, so sánh các bài báo, và trích xuất tóm tắt từ nội dung bài báo. Nếu bạn có yêu cầu cụ thể, hãy cho tôi biết để tôi có thể giúp bạn!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "Tôi có thể sử dụng các công cụ để tìm kiếm thông tin trên web, truy xuất bài viết khoa học, so sánh các bài báo, và trích xuất tóm tắt từ nội dung bài báo. Nếu bạn có yêu cầu cụ thể, hãy cho tôi biết để tôi có thể giúp bạn!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": []
+    }
+  ]
+}

@@ -9,6 +9,12 @@
 
 - Team: B07
 - Members: Phạm Đức Thiện, Nguyễn Ngọc Thuận, Trần Công Chiến, Phạm Khắc Duy
+
+| Mã sinh viên | Họ và Tên       | Role                                                                               |
+| -------------- | ------------------ | ---------------------------------------------------------------------------------- |
+|                | Trần Công Chiến | Leader, Nhiệm vụ xác định bài toán, điều phối team, xây dựng phần UI. |
+|                |                    |                                                                                    |
+
 - Provider/model:
 
 ---

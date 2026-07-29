@@ -241,3 +241,31 @@ tools:
           default: 8000
           description: "Maximum number of characters to return. Default 8000."
       required: [arxiv_url]
+
+  - name: paper_review
+    description: "Trích xuất tóm tắt và đánh giá bài báo từ text thô (Abstract, Methodology, Results, Limitations, Conclusion)."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, description: "Nội dung text bài báo"}
+        paper_id: {type: string, default: "", description: "ID bài báo nếu có"}
+        focus: {type: string, enum: [full, methodology, results, limitations], default: "full", description: "Trọng tâm cần đánh giá"}
+      required: [text]
+
+  - name: paper_compare
+    description: "So sánh side-by-side từ 2 đến 10 bài báo dựa trên các tiêu chí cụ thể."
+    parameters:
+      type: object
+      properties:
+        papers:
+          type: array
+          description: "Danh sách các object bài báo cần so sánh"
+          items:
+            type: object
+        criteria:
+          type: array
+          description: "Các tiêu chí so sánh (research_question, methodology, evaluation, results, limitations)"
+          items:
+            type: string
+        headline: {type: string, default: "Paper comparison", description: "Tiêu đề bảng so sánh"}
+      required: [papers]
