@@ -1,7 +1,7 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Bộ eval nhóm cho research chatbot: đúng 10 case, gồm 5 single-turn và 5 multi-turn. Bộ này phủ lookup, fetch, papers, paper_text, đồng thời kiểm tra wrong_tool, wrong_arg_value, unnecessary_tool, và out_of_scope.",
+  "description": "Bộ eval nhóm cho research chatbot: 14 case, gồm 7 single-turn và 7 multi-turn. Bộ này phủ lookup, fetch, papers, paper_text, paper_review, paper_compare, đồng thời kiểm tra wrong_tool, wrong_arg_value, unnecessary_tool, và out_of_scope.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
   "cases": [
     {
@@ -113,6 +113,50 @@
       "failure_type": "out_of_scope",
       "expect": {"no_tool": true, "behavior": "refuse"},
       "metadata": {"skill": "multiturn_out_of_scope_coding", "difficulty": "easy", "what_it_tests": "Yêu cầu lập trình ngoài phạm vi research NCKH → từ chối, không gọi tool."}
+    },
+    {
+      "id": "G06_paper_review_methodology",
+      "phase": "B",
+      "suite": "group",
+      "query": "Đọc và review paper sau, tập trung vào methodology. Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "paper_review", "args": {"focus": "methodology", "paper_id": "ragbench-2024", "text": "Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence."}}]},
+      "metadata": {"skill": "paper_review_methodology", "difficulty": "medium", "what_it_tests": "Người dùng đã đưa đủ paper text và yêu cầu review theo methodology → gọi paper_review với focus=methodology."}
+    },
+    {
+      "id": "G07_paper_review_limitations_multiturn",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Mình có một đoạn paper, hãy review phần limitations."},
+        {"role": "user", "content": "Abstract: We study whether smaller context windows improve grounded summarization. Method: We compare a sparse retriever, a dense retriever, and a reranker on 600 QA examples. Results: Dense retrieval improves answer faithfulness by 6.8 points. Limitations: The study only covers English benchmarks and omits human preference analysis."},
+        {"role": "user", "content": "Chỉ tập trung vào limitations thôi."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "paper_review", "args": {"focus": "limitations", "paper_id": "context-window-2024", "text": "Abstract: We study whether smaller context windows improve grounded summarization. Method: We compare a sparse retriever, a dense retriever, and a reranker on 600 QA examples. Results: Dense retrieval improves answer faithfulness by 6.8 points. Limitations: The study only covers English benchmarks and omits human preference analysis."}}]},
+      "metadata": {"skill": "paper_review_limitations_multiturn", "difficulty": "hard", "what_it_tests": "Nhiều lượt hội thoại, nhưng latest turn chốt focus=limitations và giữ nguyên paper text đã cung cấp."}
+    },
+    {
+      "id": "G08_paper_compare_two_cards",
+      "phase": "B",
+      "suite": "group",
+      "query": "So sánh hai paper cards sau theo methodology và results: 1) {\"title\": \"RAGBench\", \"summary\": \"Benchmark for retrieval augmented generation evaluation.\", \"url\": \"https://arxiv.org/abs/2401.00001\", \"arxiv_id\": \"2401.00001\"} 2) {\"title\": \"ARES\", \"summary\": \"Evaluation framework for RAG systems.\", \"url\": \"https://arxiv.org/abs/2402.00002\", \"arxiv_id\": \"2402.00002\"}",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "paper_compare", "args": {"papers": [{"title": "RAGBench", "summary": "Benchmark for retrieval augmented generation evaluation.", "url": "https://arxiv.org/abs/2401.00001", "arxiv_id": "2401.00001"}, {"title": "ARES", "summary": "Evaluation framework for RAG systems.", "url": "https://arxiv.org/abs/2402.00002", "arxiv_id": "2402.00002"}], "criteria": ["methodology", "results"], "headline": "RAG comparison"}}]},
+      "metadata": {"skill": "paper_compare_single_turn", "difficulty": "medium", "what_it_tests": "Người dùng đã đưa 2 paper cards sẵn → gọi paper_compare để so sánh theo methodology và results."}
+    },
+    {
+      "id": "G09_paper_compare_multiturn_latest_criteria",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Paper A card: {\"title\": \"RAGBench\", \"summary\": \"Benchmark for retrieval augmented generation evaluation.\", \"url\": \"https://arxiv.org/abs/2401.00001\", \"arxiv_id\": \"2401.00001\"}"},
+        {"role": "user", "content": "Paper B card: {\"title\": \"ARES\", \"summary\": \"Evaluation framework for RAG systems.\", \"url\": \"https://arxiv.org/abs/2402.00002\", \"arxiv_id\": \"2402.00002\"}"},
+        {"role": "user", "content": "So sánh hai paper trên, nhưng chỉ theo results và limitations."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "paper_compare", "args": {"papers": [{"title": "RAGBench", "summary": "Benchmark for retrieval augmented generation evaluation.", "url": "https://arxiv.org/abs/2401.00001", "arxiv_id": "2401.00001"}, {"title": "ARES", "summary": "Evaluation framework for RAG systems.", "url": "https://arxiv.org/abs/2402.00002", "arxiv_id": "2402.00002"}], "criteria": ["results", "limitations"], "headline": "Paper comparison"}}]},
+      "metadata": {"skill": "paper_compare_multiturn", "difficulty": "hard", "what_it_tests": "Hai lượt đầu cung cấp 2 cards, lượt cuối đổi tiêu chí sang results + limitations và model phải gọi paper_compare đúng criteria."}
     }
   ]
 }
