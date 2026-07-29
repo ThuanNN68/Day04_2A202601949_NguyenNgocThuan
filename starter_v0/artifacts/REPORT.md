@@ -1,13 +1,14 @@
 # Day 04 Lab v2 Report — Research Agent
 
 > File này gồm 2 phần, deadline khác nhau:
+>
 > - **PHẦN A — Giới thiệu agent**: ngắn gọn 1 trang để team khác hiểu nhanh agent có tool gì, làm được gì, thử bằng câu hỏi nào. Xong trước 11:30 để làm tài liệu phụ trợ khi demo.
 > - **PHẦN B — Chi tiết / Bằng chứng**: bảng đầy đủ (v0–v3, failure, eval, chat) dựa trên log thật. Có thể hoàn thiện sau buổi debate để nộp bài.
 
 ## Team
 
-- Team:
-- Members:
+- Team: B07
+- Members: Phạm Đức Thiện, Nguyễn Ngọc Thuận, Trần Công Chiến, Phạm Khắc Duy
 - Provider/model:
 
 ---
@@ -16,7 +17,7 @@
 
 ## A1. Agent này làm được gì
 
-> 1–2 câu mô tả agent dùng để làm gì.
+> Agent đóng vai trò như một trợ lý nghiên cứu thông minh, có khả năng phân tích yêu cầu của người dùng để tự động tìm kiếm và thu thập các bài báo khoa học liên quan trên mạng. Bên cạnh đó, agent hỗ trợ đọc hiểu, tóm tắt nội dung cốt lõi và đánh giá chất lượng của các nghiên cứu một cách chi tiết và chính xác.
 
 Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc URL và tổng hợp thành digest."
 
@@ -30,27 +31,28 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 
 > Liệt kê các tool agent đang dùng. Mỗi tool 1 dòng: tên + làm được gì.
 
-| Tên tool | Làm được gì | Tool mới nhóm thêm? |
-|---|---|---|
-| clarify | hỏi lại người dùng khi thiếu thông tin | không |
-|  |  |  |
-|  |  |  |
+| Tên tool | Làm được gì                              | Tool mới nhóm thêm? |
+| --------- | --------------------------------------------- | ---------------------- |
+| clarify   | hỏi lại người dùng khi thiếu thông tin | không                 |
+|           |                                               |                        |
+|           |                                               |                        |
 
 ## A3. Câu hỏi mẫu để thử
 
 > 3–5 câu hỏi/yêu cầu mẫu để team khác tự thử agent ngay.
 
-1.
-2.
-3.
+1. Tìm giúp tôi 5 bài báo khoa học mới nhất về ứng dụng của **Retrieval-Augmented Generation (RAG)** trong y tế và tóm tắt ngắn gọn đóng góp chính của từng bài.
+2. Đọc bài báo [Link/Tên bài báo] và phân tích chi tiết: phương pháp nghiên cứu, tập dữ liệu sử dụng, kết quả đạt được và các hạn chế còn tồn tại.
+3. Đánh giá chất lượng và độ tin cậy của bài báo [Link/Tên bài báo] dựa trên tính mới của đề tài, độ chặt chẽ của phương pháp thực nghiệm và uy tín của nơi xuất bản.
+4. So sánh ưu/nhược điểm giữa 3 bài báo nổi bật nhất về chủ đề **LLM Quantization** và gợi ý nghiên cứu phù hợp nhất cho bài toán triển khai trên thiết bị di động.
 
 ## A4. Kịch bản demo đã rehearse
 
 > Chuẩn bị 3–5 scenario. Mỗi scenario cần cho thấy tool đã làm gì và một thay đổi cụ thể giữa các version.
 
 | Scenario | Tool trace cần thấy | Câu chuyện cải thiện version | Fallback run/transcript |
-|---|---|---|---|
-|  |  |  |  |
+| -------- | --------------------- | -------------------------------- | ----------------------- |
+|          |                       |                                  |                         |
 
 ---
 
@@ -63,19 +65,20 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 Fill from `artifacts/version_log.csv` and `runs/*.json`.
 
 | Version | Prompt/tool change | Hypothesis | Metric name | Before | After | Run File |
-|---|---|---|---|---:|---:|---|
-| v0 | baseline |  |  |  |  |  |
-| v1 |  |  |  |  |  |  |
-| v2 |  |  |  |  |  |  |
-| v3 |  |  |  |  |  |  |
+| ------- | ------------------ | ---------- | ----------- | -----: | ----: | -------- |
+| v0      | baseline           | Baseline initial setup | case_accuracy | 0.00 | 0.90 | `runs/v0_B_base_openai_20260729T100558112616.json` |
+| v1      |                    |            |             |        |       |          |
+| v2      |                    |            |             |        |       |          |
+| v3      |                    |            |             |        |       |          |
 
 ## B2. Failure analysis
 
 Use actual failures from `results[*].result.failures`.
 
 | Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
-|---|---|---|---|---|
-|  |  |  |  |  |
+| ------- | ------------ | ----------------- | ----------- | --- |
+| R03_web_news_routing | wrong_tool | `lookup`, `social_search` | Model tự ý gọi thêm tool `social_search` (Twitter) khi user chỉ hỏi tìm tin tức AI chung trên web | Cập nhật `system_prompt.md` quy định rõ không tự ý gọi thêm `social_search` khi tra cứu tin tức web chung |
+| M06_switch_tool | wrong_tool | `lookup`, `social_search` | Model không bỏ tool `social_search` khi user yêu cầu "Bỏ Twitter, chuyển sang tìm trên web tin tức đi" | Thêm quy tắc xử lý ngữ cảnh multiturn trong `system_prompt.md` để hủy tool cũ khi user chuyển nguồn |
 
 ## B3. Team eval cases
 
@@ -90,16 +93,16 @@ not belong here.
 File template để trống có chủ đích; nhóm phải tự thiết kế đủ 10 case.
 
 | Case ID | What It Tests | Expected Tool/Behavior | Result |
-|---|---|---|---|
-|  |  |  |  |
+| ------- | ------------- | ---------------------- | ------ |
+|         |               |                        |        |
 
 ## B4. Live chat evidence
 
 Use `transcripts/*.transcript.json`.
 
 | Scenario/Turn | Version | Tool Calls + Args | Transcript/Run | Outcome |
-|---|---|---|---|---|
-|  |  |  |  |  |
+| ------------- | ------- | ----------------- | -------------- | ------- |
+|               |         |                   |                |         |
 
 ## B5. Tool capability evidence
 
@@ -107,11 +110,11 @@ Phân loại rõ tool mới bắt buộc, optional built-in và tool đủ đi�
 
 UI is core deliverable, not bonus. Do not list it here.
 
-| Category | Evidence File | What Worked | Risk / Guardrail |
-|---|---|---|---|
-| Must-have: tool mới đầu tiên |  |  |  |
-| Optional built-in |  |  |  |
-| Bonus: tool mới thứ 4 trở đi |  |  |  |
+| Category                         | Evidence File | What Worked | Risk / Guardrail |
+| -------------------------------- | ------------- | ----------- | ---------------- |
+| Must-have: tool mới đầu tiên |               |             |                  |
+| Optional built-in                |               |             |                  |
+| Bonus: tool mới thứ 4 trở đi |               |             |                  |
 
 ## B6. Reflection
 
