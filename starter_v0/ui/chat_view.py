@@ -117,19 +117,45 @@ def render_chat_tab(config: dict) -> None:
         )
 
     # ── Quick examples ────────────────────────────────────────
-    st.markdown("**💡 Thử nhanh:**")
-    example_cols = st.columns(4)
-    examples = [
-        ("📅 Timeline", "Tìm timeline @elonmusk"),
-        ("📚 Papers", "Tìm paper về AI safety"),
-        ("🌐 Web search", "Tin tức mới nhất về GPT-5"),
-        ("📨 Telegram", "Gửi summary lên Telegram"),
-    ]
+    st.markdown("**💡 Thử nhanh kịch bản A4:**")
+    
+    import json
+    from pathlib import Path
+    scenarios_json_path = Path(__file__).parent.parent / "artifacts" / "demo_scenarios.json"
+    
+    scenarios = []
+    if scenarios_json_path.exists():
+        try:
+            with open(scenarios_json_path, "r", encoding="utf-8") as f:
+                scenarios = json.load(f)
+        except Exception:
+            pass
+
     triggered_example = None
-    for i, (label, query) in enumerate(examples):
-        with example_cols[i]:
-            if st.button(label, key=f"example_{i}", use_container_width=True):
-                triggered_example = query
+
+    if not scenarios:
+        # Fallback if file doesn't exist or is invalid
+        examples = [
+            ("📰 Tin tức AI", "Tin tức AI hôm nay"),
+            ("📚 Tìm Paper", "bạn giúp tôi tìm paper về cách làm 1 AI agent được kohong"),
+            ("📝 Đọc Paper", "bạn có thể gửi cho tôi nội dung của bài báo Meaningful human control không"),
+            ("⏳ Hỏi lại (Clarify)", "Tóm tắt bài viết này"),
+        ]
+        example_cols = st.columns(len(examples))
+        for i, (label, query) in enumerate(examples):
+            with example_cols[i]:
+                if st.button(label, key=f"example_{i}", use_container_width=True):
+                    triggered_example = query
+    else:
+        # Render group by scenarios
+        for s_idx, scenario in enumerate(scenarios):
+            st.markdown(f"**{scenario.get('scenario_name', f'Kịch bản {s_idx+1}')}**")
+            turns = scenario.get("turns", [])
+            cols = st.columns(len(turns)) if turns else []
+            for t_idx, turn in enumerate(turns):
+                with cols[t_idx]:
+                    if st.button(turn["label"], key=f"btn_{s_idx}_{t_idx}", use_container_width=True):
+                        triggered_example = turn["query"]
 
     # Dùng example nếu click
     query_to_run = triggered_example or user_input
