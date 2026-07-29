@@ -137,8 +137,6 @@ def render_sidebar() -> dict:
             unsafe_allow_html=True,
         )
 
-        st.caption("⚠️ MOCK mode — chưa kết nối logic thật")
-
     return {
         "provider": provider,
         "model": model,

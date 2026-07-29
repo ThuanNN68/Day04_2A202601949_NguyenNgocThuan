@@ -9,6 +9,12 @@
 
 - Team: B07
 - Members: Phạm Đức Thiện, Nguyễn Ngọc Thuận, Trần Công Chiến, Phạm Khắc Duy
+
+| Mã sinh viên | Họ và Tên       | Role                                                                               |
+| -------------- | ------------------ | ---------------------------------------------------------------------------------- |
+|                | Trần Công Chiến | Leader, Nhiệm vụ xác định bài toán, điều phối team, xây dựng phần UI. |
+|                |                    |                                                                                    |
+
 - Provider/model:
 
 ---
@@ -64,21 +70,21 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 
 Fill from `artifacts/version_log.csv` and `runs/*.json`.
 
-| Version | Prompt/tool change | Hypothesis | Metric name | Before | After | Run File |
-| ------- | ------------------ | ---------- | ----------- | -----: | ----: | -------- |
-| v0      | baseline           | Baseline initial setup | case_accuracy | 0.00 | 0.90 | `runs/v0_B_base_openai_20260729T100558112616.json` |
-| v1      |                    |            |             |        |       |          |
-| v2      |                    |            |             |        |       |          |
-| v3      |                    |            |             |        |       |          |
+| Version | Prompt/tool change | Hypothesis             | Metric name   | Before | After | Run File                                             |
+| ------- | ------------------ | ---------------------- | ------------- | -----: | ----: | ---------------------------------------------------- |
+| v0      | baseline           | Baseline initial setup | case_accuracy |   0.00 |  0.90 | `runs/v0_B_base_openai_20260729T100558112616.json` |
+| v1      |                    |                        |               |        |       |                                                      |
+| v2      |                    |                        |               |        |       |                                                      |
+| v3      |                    |                        |               |        |       |                                                      |
 
 ## B2. Failure analysis
 
 Use actual failures from `results[*].result.failures`.
 
-| Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
-| ------- | ------------ | ----------------- | ----------- | --- |
-| R03_web_news_routing | wrong_tool | `lookup`, `social_search` | Model tự ý gọi thêm tool `social_search` (Twitter) khi user chỉ hỏi tìm tin tức AI chung trên web | Cập nhật `system_prompt.md` quy định rõ không tự ý gọi thêm `social_search` khi tra cứu tin tức web chung |
-| M06_switch_tool | wrong_tool | `lookup`, `social_search` | Model không bỏ tool `social_search` khi user yêu cầu "Bỏ Twitter, chuyển sang tìm trên web tin tức đi" | Thêm quy tắc xử lý ngữ cảnh multiturn trong `system_prompt.md` để hủy tool cũ khi user chuyển nguồn |
+| Case ID              | Failure Type | Actual Tool Calls             | What Failed                                                                                                       | Fix                                                                                                                      |
+| -------------------- | ------------ | ----------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| R03_web_news_routing | wrong_tool   | `lookup`, `social_search` | Model tự ý gọi thêm tool`social_search` (Twitter) khi user chỉ hỏi tìm tin tức AI chung trên web       | Cập nhật`system_prompt.md` quy định rõ không tự ý gọi thêm `social_search` khi tra cứu tin tức web chung |
+| M06_switch_tool      | wrong_tool   | `lookup`, `social_search` | Model không bỏ tool`social_search` khi user yêu cầu "Bỏ Twitter, chuyển sang tìm trên web tin tức đi" | Thêm quy tắc xử lý ngữ cảnh multiturn trong`system_prompt.md` để hủy tool cũ khi user chuyển nguồn         |
 
 ## B3. Team eval cases
 

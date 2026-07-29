@@ -20,22 +20,35 @@ METRIC_LABELS = {
 def render_run_logs_tab() -> None:
     """
     Render tab Run Logs.
-
-    TODO: Thay mock bằng đọc thật từ filesystem:
-        from pathlib import Path
-        runs_dir = Path(__file__).parent.parent / "runs"
-        run_logs = [
-            json.loads(p.read_text(encoding="utf-8"))
-            for p in sorted(runs_dir.glob("*.json"), reverse=True)
-        ]
     """
-    from .mock_data import get_mock_run_logs, get_mock_version_log
+    from pathlib import Path
+    import json
+    import csv
 
-    runs = get_mock_run_logs()
-    version_log = get_mock_version_log()
+    ROOT = Path(__file__).parent.parent
+    runs_dir = ROOT / "runs"
+    version_log_path = ROOT / "artifacts" / "version_log.csv"
+
+    runs = []
+    if runs_dir.exists():
+        for p in sorted(runs_dir.glob("*.json")):
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+                data["run_file"] = f"runs/{p.name}"
+                runs.append(data)
+            except Exception:
+                pass
+
+    version_log = []
+    if version_log_path.exists():
+        try:
+            with open(version_log_path, encoding="utf-8") as f:
+                version_log = list(csv.DictReader(f))
+        except Exception:
+            pass
 
     st.markdown("## 📊 Run Logs & Metrics")
-    st.caption("Dashboard tổng hợp kết quả eval. TODO: đọc từ `runs/*.json`")
+    st.caption("Dashboard tổng hợp kết quả eval từ thư mục `runs/` và `version_log.csv` ")
 
     if not runs:
         st.info("Chưa có run log. Chạy `python run_eval.py` để có data.")
