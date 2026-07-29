@@ -110,9 +110,18 @@ not belong here.
 
 File template để trống có chủ đích; nhóm phải tự thiết kế đủ 10 case.
 
-| Case ID | What It Tests | Expected Tool/Behavior | Result |
-| ------- | ------------- | ---------------------- | ------ |
-|         |               |                        |        |
+| Case ID                             | What It Tests    | Expected Tool/Behavior | Result |
+| ----------------------------------- | ---------------- | ---------------------- | ------ |
+| G01_lookup_latest_research_news | Lookup tin research mới nhất theo chủ đề | lookup(query=RAG evaluation, topic=news, timeframe=day) | FAIL (timeframe bị gọi week thay vì day) |
+| G02_fetch_specific_url | Đã có URL cụ thể thì phải đọc đúng link | fetch(url=https://www.anthropic.com/research/constitutional-ai) | PASS |
+| G03_papers_topic_search | Routing sang tìm paper arXiv theo chủ đề | papers(query=benchmark for AI agents) | FAIL (query bị đổi thành AI agent benchmark) |
+| G04_paper_text_page_limit | Đọc paper theo arXiv id và giới hạn trang | paper_text(arxiv_url=1706.03762, max_pages=3) | PASS |
+| G05_unnecessary_tool_meta_question | Câu meta capability không cần tool | no_tool=true, answer_without_tool | PASS |
+| M01_lookup_topic_correction | Multi-turn đổi chủ đề nhưng giữ timeframe hôm nay | lookup(query=diffusion, topic=news, timeframe=day) | PASS |
+| M02_fetch_url_filled_later | Multi-turn bổ sung URL ở lượt sau | fetch(url=https://www.openai.com/research/) | PASS |
+| M03_papers_result_limit_correction | Multi-turn đổi topic và số lượng kết quả | papers(query=RAG evaluation, max_results=5) | PASS |
+| M04_paper_text_id_and_page_correction | Multi-turn ghép arXiv id + max_pages | paper_text(arxiv_url=1706.03762, max_pages=2) | PASS |
+| M05_out_of_scope_coding_request | Câu coding ngoài scope research | no_tool=true, refuse | PASS |
 
 ## B4. Live chat evidence
 
@@ -136,20 +145,21 @@ UI is core deliverable, not bonus. Do not list it here.
 ## B6. Reflection
 
 - **Which fixes belonged in `system_prompt.md`?**
+
   - *Parallel Execution Rule*: Siết chặt điều kiện gọi song song `lookup` và `social_search`, chỉ cho phép gọi cả hai khi người dùng yêu cầu rõ ràng cả 2 nguồn trong cùng một tin nhắn (khắc phục lỗi `extra_tool_call` ở R03).
   - *Query Keyword Rule*: Hướng dẫn trích xuất từ khóa ngắn gọn bằng tiếng Anh, loại bỏ filler words như "tin tức", "hôm nay", "mới nhất" (khắc phục lỗi `wrong_arg_value` ở R13).
   - *Source Switching & Persistence (STRICT)*: Quy định khi người dùng chuyển nguồn (ví dụ: "Bỏ Twitter, chuyển sang tìm web"), nguồn cũ phải duy trì trạng thái vô hiệu hóa ở tất cả các lượt sau (khắc phục lỗi M06).
   - *Security Guardrails*: Thêm quy định chống prompt injection, từ chối câu ngoài scope (toán tích phân, viết code Fibonacci) và ngăn tiết lộ danh sách tool nội bộ.
-
 - **Which fixes belonged in `tools.yaml`?**
+
   - *Chi tiết hóa Description & Routing Hints*: Bổ sung ngữ cảnh sử dụng cho từng tool (ví dụ: `lookup` dùng cho tin web chung, không dùng cho bài báo khoa học hay URL trực tiếp).
   - *Điều kiện loại trừ bổ trợ*: Thêm ràng buộc trực tiếp trong `description` của `social_search` và `lookup` để cấm kết hợp ngầm trừ khi có yêu cầu đồng thời ở lượt hiện tại.
-
 - **Which failure needed manual review instead of automatic grading?**
+
   - *Các trường hợp thiếu API Key*: Các test case như R01–R07 trả về `RuntimeError` (do thiếu `RAPIDAPI_KEY` / `TAVILY_API_KEY`) nhưng eval tự động vẫn chấm PASS vì chỉ so sánh `tool_calls` và `args`. Cần review thủ công `tool_results` để xác nhận execution thực sự thành công.
   - *Câu phản hồi từ chối / Meta (R08, R09, R14)*: Eval tự động chỉ kiểm tra `no_tool: true`, cần người review đọc `actual_text` để đảm bảo câu trả lời lịch sự, đúng định hướng và không bịa đặt.
-
 - **What would you improve next?**
+
   - Cấu hình đầy đủ environment variables để kiểm thử toàn bộ luồng live API thực tế.
   - Cải thiện `paper_text` và `paper_review` bằng mô hình RAG / trích xuất ngữ nghĩa nâng cao hơn thay vì trích xuất regex thô từ PDF.
   - Xây dựng bộ test cases phong phú hơn cho `data/eval_group.json` tập trung vào luồng bài báo khoa học (`papers` → `paper_text` → `paper_review` → `paper_compare`).

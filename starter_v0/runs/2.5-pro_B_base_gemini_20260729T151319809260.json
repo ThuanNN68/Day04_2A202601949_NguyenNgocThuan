@@ -1,0 +1,1394 @@
+{
+  "run_id": "2.5-pro_B_base_gemini_20260729T151319809260",
+  "version": "2.5-pro",
+  "artifact_version": "2.5-pro+p27577778d9d2+t07bd73bbc40d",
+  "prompt_hash": "27577778d9d23f197f1cff844fe89b55fb5d31d9c00723e4130f8b2d27290a2a",
+  "tools_hash": "07bd73bbc40d9d57c9b44f587731ad9bac4febc345392723986657472338a524",
+  "phase": "B",
+  "suite": "base",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "system_prompt": "D:\\PKDUY\\VinUni\\AI-thucchien\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\PKDUY\\VinUni\\AI-thucchien\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "D:\\PKDUY\\VinUni\\AI-thucchien\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Bộ eval nhóm cho research chatbot: 14 case, gồm 7 single-turn và 7 multi-turn. Bộ này phủ lookup, fetch, papers, paper_text, paper_review, paper_compare, đồng thời kiểm tra wrong_tool, wrong_arg_value, unnecessary_tool, và out_of_scope.",
+  "generated_at": "2026-07-29T15:13:19",
+  "summary": {
+    "total_cases": 14,
+    "measured_cases": 14,
+    "provider_error_cases": 0,
+    "passed_cases": 14,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "G01_lookup_latest_research_news",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "lookup_research_news",
+        "difficulty": "medium",
+        "what_it_tests": "Câu hỏi về tin mới của một chủ đề nghiên cứu → phải route sang lookup với topic=news; timeframe có thể do model chọn day/week."
+      },
+      "input": "Những tin mới nhất về RAG evaluation trên web là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "RAG evaluation",
+              "topic": "news"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "timeframe": "week",
+              "query": "RAG evaluation",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "timeframe": "week",
+            "query": "RAG evaluation",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "RAG evaluation",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Beyond the Hype: Strategies to Capitalize on Agentic AI in Modern Manufacturing - Automation World",
+                "url": "https://www.automationworld.com/sponsored/whitepaper/55389416/beyond-the-hype-strategies-to-capitalize-on-agentic-ai-in-modern-manufacturing",
+                "source": "automationworld.com",
+                "summary": "Drawing on the State of Enterprise Agentic AI in 2026 — a study of 740 AI and business leaders across $5B+ enterprises in North America and Europe — this webinar delivers an unfiltered look at where manufacturing stands in the agentic AI race and what it takes to pull ahead. Join Jeff Evernham as he unpacks why most manufacturers are stalling, what the 28% are doing differently, and the concrete steps your organization can take to move from AI experimentation to measurable operational impact. * The real state of agentic AI in manufacturing: how manufacturers stack up against cross-industry benchmarks and what agent washing is costing organizations that fall for it. * The use cases generating real ROI: what manufacturers capturing the most value out of AI are using it for. As the Head of Innovation, Jeff Evernham sets the strategy for Agentic AI powered by RAG, so that companies can make the most of their content with generative AI.",
+                "score": 0.07769257
+              },
+              {
+                "title": "A prospective study for validating an automated AI-based system for detecting age-related macular degeneration in clinical settings - Nature",
+                "url": "https://www.nature.com/articles/s41598-025-94866-6",
+                "source": "nature.com",
+                "summary": "# A prospective study for validating an automated AI-based system for detecting age-related macular degeneration in clinical settings. Age-related macular degeneration (AMD) is a leading cause of blindness worldwide. This study evaluates the performance of an AI-based system designed to detect referable AMD, defined as more than early AMD (mteAMD), in adults over 50 who have not been previously diagnosed. Non-dilated images of both eyes were taken, and for validation, dilated images were reviewed by three ophthalmologists who classified the cases as no AMD, early, intermediate, or late AMD. For identifying mteAMD at the subject level, the AI system achieved an AUC of 0.92, with a sensitivity of 90.27% and specificity of 83.36%, demonstrating its strong potential for early diagnosis and screening of AMD in real-world clinical settings. Age-related macular degeneration (AMD) is a leading cause of blindness in developed countries. This is because of the lack of automated screening tool which could enable the AMD screening in the primary care settings for the patients who are not compliant to the opthalmologists’ visit despite the ophthalmologists visit recommendation.",
+                "score": 0.06104804
+              },
+              {
+                "title": "Britain Made Banks Refund Scam Victims. The Sky Did Not Fall. - Forbes",
+                "url": "https://www.forbes.com/sites/zennonkapron/2026/07/24/britain-made-banks-refund-scam-victims-the-sky-did-not-fall/",
+                "source": "forbes.com",
+                "summary": "The UK's mandatory authorized push payment (APP) scam reimbursement scheme, launched in October 2023, has defied industry warnings, proving highly effective. An independent evaluation for the Payment Systems Regulator (PSR) shows a £73 million annual reduction in fraud losses and nearly 35,000 fewer scams. The scheme requires banks to refund victims up to £85,000 within five business days, with costs split equally between sending and receiving institutions. Industry predictions of moral hazard and market disruption did not materialize. In October 2024 the United Kingdom did the thing banking industries everywhere insist is impossible: it required banks to refund victims of authorized push payment scams, by rule, within five business days, up to £85,000. This month the regulator published the first hard evidence of what mandatory reimbursement actually does to a payments market. The independent evaluation, conducted by Frontier Economics for the Payment Systems Regulator, found fraud losses down £73 million a year, nearly 35,000 fewer scams, and none of the disasters the industry predicted.",
+                "score": 0.053764965
+              },
+              {
+                "title": "Sausalito City Manager Elaine Forbes to be released from jail, will undergo psych evaluation - San Francisco Chronicle",
+                "url": "https://www.sfchronicle.com/bayarea/article/elaine-forbes-release-jail-22356119.php",
+                "source": "sfchronicle.com",
+                "summary": "Sausalito’s city manager to be released from jail, will undergo psych evaluation. # Sausalito City Manager Elaine Forbes to be released from jail, will undergo psych evaluation. Sausalito City Manager Elaine Forbes will be released from jail while facing misdemeanor loitering and theft charges in connection with a weekend incident at the Sausalito Yacht Harbor. Marin County Superior Court Judge Cindee Mayfield ordered Wednesday that Forbes be released on her own recognizance and voluntarily submit to a psychiatric evaluation at Marin General Hospital. * **Read more:** Sausalito city manager, ex-S.F. port chief was reported missing hours before her arrest on a yacht. Forbes was arrested early Saturday on suspicion of burglary after Marin County Sheriff’s Office deputies responding to a noise complaint found her inside a yacht that she did not own. Forbes had been placed on a leave of absence last Thursday, less than a month into her job as Sausalito city manager, for reasons that the city did not disclose.",
+                "score": 0.03596532
+              },
+              {
+                "title": "Industry Reactions to OpenAI Models Hacking Hugging Face: Feedback Friday - SecurityWeek",
+                "url": "https://www.securityweek.com/industry-reactions-to-openai-models-hacking-hugging-face-feedback-friday/amp/",
+                "source": "securityweek.com",
+                "summary": "**During an internal capability evaluation, an OpenAI model exploited a zero-day vulnerability in its testing infrastructure to escape its sandbox environment.**. Determined to solve its assigned cybersecurity benchmark, the autonomous agent gained internet access and targeted Hugging Face’s production infrastructure. Hugging Face disclosed the intrusion shortly after it was detected, but the company initially did not know who was behind what it described as an autonomous AI attack. Industry professionals evaluated the incident through diverse lenses, debating whether it represents a lab containment failure or an unprecedented agentic capability milestone, while stressing the urgent need for machine-speed behavioral telemetry, strict agent identity governance, and flexible defensive AI capabilities. “The Hugging Face intrusion and OpenAI’s subsequent disclosure should end the debate over whether autonomous AI agents pose a real enterprise security risk. OpenAI published a post, OpenAI and Hugging Face partner to address security incident during model evaluation, confirming the attack was driven by their own models (including a pre-release one with reduced cyber refusals) during an internal capability evaluation that escaped its sandbox.",
+                "score": 0.0350424
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_fetch_specific_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "fetch_specific_url",
+        "difficulty": "easy",
+        "what_it_tests": "Đã có URL cụ thể → phải gọi fetch, không tự chuyển sang lookup."
+      },
+      "input": "Tóm tắt bài này giúp mình: https://www.anthropic.com/research/constitutional-ai",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://www.anthropic.com/research/constitutional-ai"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://www.anthropic.com/research/constitutional-ai"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://www.anthropic.com/research/constitutional-ai"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://www.anthropic.com/research/constitutional-ai",
+            "items": [
+              {
+                "title": "Not Found \\ Anthropic",
+                "url": "https://www.anthropic.com/research/constitutional-ai",
+                "source": "anthropic.com",
+                "summary": "A 404 poem by Claude Haiku 4.5Claude Sonnet 5Claude Opus 5Claude Fable 5\n\n404, 404"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_papers_topic_search",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "papers_arxiv_search",
+        "difficulty": "medium",
+        "what_it_tests": "Yêu cầu tìm paper/preprint → route đúng tool papers; không chấm cứng paraphrase của query."
+      },
+      "input": "Tìm các paper arXiv về benchmark cho AI agents.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "AI agent benchmark"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "AI agent benchmark"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "AI agent benchmark",
+            "api_query": "all:AI AND all:agent AND all:benchmark",
+            "total_results": 2592,
+            "items": [
+              {
+                "arxiv_id": "2601.07880v1",
+                "title": "Sola-Visibility-ISPM: Benchmarking Agentic AI for Identity Security Posture Management Visibility",
+                "summary": "Identity Security Posture Management (ISPM) is a core challenge for modern enterprises operating across cloud and SaaS environments. Answering basic ISPM visibility questions, such as understanding identity inventory and configuration hygiene, requires interpreting complex identity data, motivating growing interest in agentic AI systems. Despite this interest, there is currently no standardized way to evaluate how well such systems perform ISPM visibility tasks on real enterprise data. We introduce the Sola Visibility ISPM Benchmark, the first benchmark designed to evaluate agentic AI systems on foundational ISPM visibility tasks using a live, production-grade identity environment spanning AWS, Okta, and Google Workspace. The benchmark focuses on identity inventory and hygiene questions and is accompanied by the Sola AI Agent, a tool-using agent that translates natural-language queries into executable data exploration steps and produces verifiable, evidence-backed answers. Across 77 benchmark questions, the agent achieves strong overall performance, with an expert accuracy of 0.84 and a strict success rate of 0.77. Performance is highest on AWS hygiene tasks, where expert accuracy reaches 0.94, while results on Google Workspace and Okta hygiene tasks are more moderate, yet competitive. Overall, this work provides a practical and reproducible benchmark for evaluating agentic AI systems in identity security and establishes a foundation for future ISPM benchmarks covering more advanced identity analysis and governance tasks.",
+                "authors": [
+                  "Gal Engelberg",
+                  "Konstantin Koutsyi",
+                  "Leon Goldberg",
+                  "Reuven Elezra",
+                  "Idan Pinto",
+                  "Tal Moalem",
+                  "Shmuel Cohen",
+                  "Yoni Weintrob"
+                ],
+                "published": "2026-01-11T18:36:33Z",
+                "updated": "2026-01-11T18:36:33Z",
+                "url": "http://arxiv.org/abs/2601.07880v1",
+                "pdf_url": "https://arxiv.org/pdf/2601.07880v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CR",
+                "categories": [
+                  "cs.CR",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2503.12687v1",
+                "title": "AI Agents: Evolution, Architecture, and Real-World Applications",
+                "summary": "This paper examines the evolution, architecture, and practical applications of AI agents from their early, rule-based incarnations to modern sophisticated systems that integrate large language models with dedicated modules for perception, planning, and tool use. Emphasizing both theoretical foundations and real-world deployments, the paper reviews key agent paradigms, discusses limitations of current evaluation benchmarks, and proposes a holistic evaluation framework that balances task effectiveness, efficiency, robustness, and safety. Applications across enterprise, personal assistance, and specialized domains are analyzed, with insights into future research directions for more resilient and adaptive AI agent systems.",
+                "authors": [
+                  "Naveen Krishnan"
+                ],
+                "published": "2025-03-16T23:07:48Z",
+                "updated": "2025-03-16T23:07:48Z",
+                "url": "http://arxiv.org/abs/2503.12687v1",
+                "pdf_url": "https://arxiv.org/pdf/2503.12687v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2605.23989v1",
+                "title": "Towards trustworthy agentic AI: a comprehensive survey of safety, robustness, privacy, and system security",
+                "summary": "Agentic AI systems -- Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions -- can execute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This survey provides a focused examination of trustworthy agentic AI through two core dimensions that are critical for high-risk deployments: Safety and Robustness, and Privacy and System Security. For each dimension, we clarify key concepts, identify where risks emerge along the agent workflow, and summarize stage-targeted mitigation strategies. Other trustworthiness aspects (value alignment, transparency, fairness, and accountability) are discussed as relevant context rather than parallel chapters. To support consistent comparison and deployment decisions, we consolidate evaluation into a unified metrics-and-benchmarks hub, emphasizing both outcome and process signals (e.g., constraint violations, trace completeness, and adversarial success rates) and offering scenario-to-metric guidance for release gating. We conclude by outlining open challenges such as self-evolving agents, runtime monitoring and verification, privacy-preserving personalization, and the trust-utility trade-off, and present a case study of real-world security failures in open-source agentic systems. Our goal is to serve as a practical reference for researchers and practitioners building trustworthy agentic systems in high-stakes environments.",
+                "authors": [
+                  "Jinhu Qi",
+                  "Muzhi Li",
+                  "Jiahong Liu",
+                  "Yuqin Shu",
+                  "Dianzhi Yu",
+                  "Shicheng Ma",
+                  "Wenqian Cui",
+                  "Yiyang Zhao",
+                  "Yiyi Chen",
+                  "Ruoxi Jiang",
+                  "Irwin King",
+                  "Zenglin Xu"
+                ],
+                "published": "2026-05-17T10:26:37Z",
+                "updated": "2026-05-17T10:26:37Z",
+                "url": "http://arxiv.org/abs/2605.23989v1",
+                "pdf_url": "https://arxiv.org/pdf/2605.23989v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CL",
+                  "cs.CR"
+                ]
+              },
+              {
+                "arxiv_id": "2606.20950v2",
+                "title": "Power Systems Agent Benchmark: Executable Evaluation of AI Agents in Electric Power Engineering",
+                "summary": "Executable evaluation -- checking the consequences of an agent's actions with a program rather than grading its prose -- has become a prominent way to assess tool-using AI agents in software settings. Electric power engineering has not yet had an analogous benchmark: language-model use is still dominated by retrieval and text question answering, while agents acting on power-system artifacts remain mostly academic prototypes. We introduce the Power Systems Agent Benchmark, an executable benchmark for power-engineering agents. An agent receives a structured task and returns a structured solution; a deterministic evaluator recomputes the engineering quantities, checks operational constraints, and returns a feasibility flag, a normalized score, and explicit violations. The benchmark contains 41 task families across eight areas of power engineering, from power flow and protection to stability, microgrids, reliability, power quality, and forecasting. Each task is grounded in a citable source, standard, or documented engineering formulation. To resist contamination, held-out cases are synthesized on demand by per-family generators from private seeds: the construction is inspectable, but the instances remain private. In a reference evaluation with three command-line agents, the strongest score near the compact tier's ceiling, a smaller open model trails, and public and held-out performance are broadly consistent; a separate public-split grid with OpenCode and Aider probes harness effects. The reference evaluation doubles as quality control: unanimous failures flag candidate task or evaluator defects, and it exposed a latent evaluator bug missed by self-consistency checks. The evaluators are compact deterministic surrogates, but the task contract allows their internals to be upgraded to simulator-backed checks without changing how tasks are posed or solved.",
+                "authors": [
+                  "Sergei Trashchenkov"
+                ],
+                "published": "2026-06-18T21:30:39Z",
+                "updated": "2026-07-02T14:10:13Z",
+                "url": "http://arxiv.org/abs/2606.20950v2",
+                "pdf_url": "https://arxiv.org/pdf/2606.20950v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "eess.SY"
+                ]
+              },
+              {
+                "arxiv_id": "2603.27476v2",
+                "title": "PeopleSearchBench: A Multi-Dimensional Benchmark for Evaluating AI-Powered People Search Platforms",
+                "summary": "AI-powered people search platforms are increasingly used in recruiting, sales prospecting, and professional networking, yet no widely accepted benchmark exists for evaluating their performance. We introduce PeopleSearchBench, an open-source benchmark that compares four people search platforms on 119 real-world queries across four use cases: corporate recruiting, B2B sales prospecting, expert search with deterministic answers, and influencer/KOL discovery. A key contribution is Criteria-Grounded Verification, a factual relevance pipeline that extracts explicit, verifiable criteria from each query and uses live web search to determine whether returned people satisfy them. This produces binary relevance judgments grounded in factual verification rather than subjective holistic LLM-as-judge scores. We evaluate systems on three dimensions: Relevance Precision (padded nDCG@10), Effective Coverage (task completion and qualified result yield), and Information Utility (profile completeness and usefulness), averaged equally into an overall score. Lessie, a specialized AI people search agent, performs best overall, scoring 65.2, 18.5% higher than the second-ranked system, and is the only system to achieve 100% task completion across all 119 queries. We also report confidence intervals, human validation of the verification pipeline (Cohen's kappa = 0.84), ablations, and full documentation of queries, prompts, and normalization procedures. Code, query definitions, and aggregated results are available on GitHub.",
+                "authors": [
+                  "Wei Wang",
+                  "Tianyu Shi",
+                  "Shuai Zhang",
+                  "Boyang Xia",
+                  "Zequn Xie",
+                  "Chenyu Zeng",
+                  "Qi Zhang",
+                  "Lynn Ai",
+                  "Yaqi Yu",
+                  "Kaiming Zhang",
+                  "Feiyue Tang",
+                  "Lei Ding"
+                ],
+                "published": "2026-03-29T02:21:09Z",
+                "updated": "2026-07-27T00:12:21Z",
+                "url": "http://arxiv.org/abs/2603.27476v2",
+                "pdf_url": "https://arxiv.org/pdf/2603.27476v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.LG"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_paper_text_page_limit",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "paper_text_page_limit",
+        "difficulty": "hard",
+        "what_it_tests": "Có arXiv id và giới hạn số trang → paper_text với arxiv_url và max_pages đúng."
+      },
+      "input": "Đọc paper arXiv 1706.03762, lấy đúng 3 trang đầu thôi.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "1706.03762",
+              "max_pages": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "1706.03762",
+              "max_pages": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "paper_text",
+          "args": {
+            "arxiv_url": "1706.03762",
+            "max_pages": 3
+          },
+          "result": {
+            "tool": "get_arxiv_paper_text",
+            "arxiv_id": "1706.03762",
+            "url": "https://arxiv.org/abs/1706.03762",
+            "pdf_url": "https://arxiv.org/pdf/1706.03762.pdf",
+            "pdf_path": "D:\\PKDUY\\VinUni\\AI-thucchien\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\arxiv_papers\\1706.03762.pdf",
+            "txt_path": "D:\\PKDUY\\VinUni\\AI-thucchien\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\arxiv_papers\\1706.03762.txt",
+            "page_count": 15,
+            "pages_read": 3,
+            "chars_returned": 8000,
+            "items": [
+              {
+                "title": "arXiv paper 1706.03762",
+                "url": "https://arxiv.org/abs/1706.03762",
+                "source": "arxiv.org",
+                "summary": "Provided proper attribution is provided, Google hereby grants permission to\nreproduce the tables and figures in this paper solely for use in journalistic or\nscholarly works.\nAttention Is All You Need\nAshish Vaswani∗\nGoogle Brain\navaswani@google.com\nNoam Shazeer∗\nGoogle Brain\nnoam@google.com\nNiki Parmar∗\nGoogle Research\nnikip@google.com\nJakob Uszkoreit∗\nGoogle Research\nusz@google.com\nLlion Jones∗\nGoogle Research\nllion@google.com\nAidan N. Gomez∗ †\nUniversity of Toronto\naidan@cs.toronto.edu\nŁukasz Kaiser∗\nGoogle Brain\nlukaszkaiser@google.com\nIllia Polosukhin∗ ‡\nillia.polosukhin@gmail.com\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or\nconvolutional neural networks that include an encoder and a decoder. The best\nperforming models also connect the encoder and decoder through an attention\nmechanism. We propose a new simple network architecture, the Transformer,\nbased solely on attention mechanisms, dispensing with recurrence and convolutions\nentirely. Experiments on two machine translation tasks show these models to\nbe superior in quality while being more parallelizable and requiring significantly\nless time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-\nto-German translation task, improving over the existing best results, including\nensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task,\nour model establishes a new single-model state-of-the-art BLEU score of 41.8 after\ntraining for 3.5 days on eight GPUs, a small fraction of the training costs of the\nbest models from the literature. We show that the Transformer generalizes well to\nother tasks by applying it successfully to English constituency parsing both with\nlarge and limited training data.\n∗Equal contribution. Listing order is random. Jakob proposed replacing RNNs with self-attention and started\nthe effort to evaluate this idea. Ashish, with Illia, designed and implemented the first Transformer models and\nhas been crucially involved in every aspect of this work. Noam proposed scaled dot-product attention, multi-head\nattention and the parameter-free position representation and became the other person involved in nearly every\ndetail. Niki designed, implemented, tuned and evaluated countless model variants in our original codebase and\ntensor2tensor. Llion also experimented with novel model variants, was responsible for our initial codebase, and\nefficient inference and visualizations. Lukasz and Aidan spent countless long days designing various parts of and\nimplementing tensor2tensor, replacing our earlier codebase, greatly improving results and massively accelerating\nour research.\n†Work performed while at Google Brain.\n‡Work performed while at Google Research.\n31st Conference on Neural Information Processing Systems (NIPS 2017), Long Beach, CA, USA.\narXiv:1706.03762v7  [cs.CL]  2 Aug 2023\n\n1 Introduction\nRecurrent neural networks, long short-term memory [13] and gated recurrent [7] neural networks\nin particular, have been firmly established as state of the art approaches in sequence modeling and\ntransduction problems such as language modeling and machine translation [ 35, 2, 5]. Numerous\nefforts have since continued to push the boundaries of recurrent language models and encoder-decoder\narchitectures [38, 24, 15].\nRecurrent models typically factor computation along the symbol positions of the input and output\nsequences. Aligning the positions to steps in computation time, they generate a sequence of hidden\nstates ht, as a function of the previous hidden state ht−1 and the input for position t. This inherently\nsequential nature precludes parallelization within training examples, which becomes critical at longer\nsequence lengths, as memory constraints limit batching across examples. Recent work has achieved\nsignificant improvements in computational efficiency through factorization tricks [21] and conditional\ncomputation [32], while also improving model performance in case of the latter. The fundamental\nconstraint of sequential computation, however, remains.\nAttention mechanisms have become an integral part of compelling sequence modeling and transduc-\ntion models in various tasks, allowing modeling of dependencies without regard to their distance in\nthe input or output sequences [2, 19]. In all but a few cases [27], however, such attention mechanisms\nare used in conjunction with a recurrent network.\nIn this work we propose the Transformer, a model architecture eschewing recurrence and instead\nrelying entirely on an attention mechanism to draw global dependencies between input and output.\nThe Transformer allows for significantly more parallelization and can reach a new state of the art in\ntranslation quality after being trained for as little as twelve hours on eight P100 GPUs.\n2 Background\nThe goal of reducing sequential computation also forms the foundation of the Extended Neural GPU\n[16], ByteNet [18] and ConvS2S [9], all of which use convolutional neural networks as basic building\nblock, computing hidden representations in parallel for all input and output positions. In these models,\nthe number of operations required to relate signals from two arbitrary input or output positions grows\nin the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes\nit more difficult to learn dependencies between distant positions [ 12]. In the Transformer this is\nreduced to a constant number of operations, albeit at the cost of reduced effective resolution due\nto averaging attention-weighted positions, an effect we counteract with Multi-Head Attention as\ndescribed in section 3.2.\nSelf-attention, sometimes called intra-attention is an attention mechanism relating different positions\nof a single sequence in order to compute a representation of the sequence. Self-attention has been\nused successfully in a variety of tasks including reading comprehension, abstractive summarization,\ntextual entailment and learning task-independent sentence representations [4, 27, 28, 22].\nEnd-to-end memory networks are based on a recurrent attention mechanism instead of sequence-\naligned recurrence and have been shown to perform well on simple-language question answering and\nlanguage modeling tasks [34].\nTo the best of our knowledge, however, the Transformer is the first transduction model relying\nentirely on self-attention to compute representations of its input and output without using sequence-\naligned RNNs or convolution. In the following sections, we will describe the Transformer, motivate\nself-attention and discuss its advantages over models such as [17, 18] and [9].\n3 Model Architecture\nMost competitive neural sequence transduction models have an encoder-decoder structure [5, 2, 35].\nHere, the encoder maps an input sequence of symbol representations (x1, ..., xn) to a sequence\nof continuous representations z = (z1, ..., zn). Given z, the decoder then generates an output\nsequence (y1, ..., ym) of symbols one element at a time. At each step the model is auto-regressive\n[10], consuming the previously generated symbols as additional input when generating the next.\n2\n\nFigure 1: The Transformer - model architecture.\nThe Transformer follows this overall architecture using stacked self-attention and point-wise, fully\nconnected layers for both the encoder and decoder, shown in the left and right halves of Figure 1,\nrespectively.\n3.1 Encoder and Decoder Stacks\nEncoder: The encoder is composed of a stack of N = 6 identical layers. Each layer has two\nsub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, position-\nwise fully connected feed-forward network. We employ a residual connection [11] around each of\nthe two sub-layers, followed by layer normalization [ 1]. That is, the output of each sub-layer is\nLayerNorm(x + Sublayer(x)), where Sublayer(x) is the function implemented by the sub-layer\nitself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding\nlayers"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_unnecessary_tool_meta_question",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "meta_no_tool",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi meta về năng lực hệ thống → trả lời thẳng, không gọi tool."
+      },
+      "input": "Bạn làm được gì trong bài lab research này?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Tôi là một trợ lý nghiên cứu AI chuyên sâu về tin tức công nghệ, nghiên cứu khoa học và phân tích mạng xã hội. Trong bài lab research này, tôi có thể hỗ trợ bạn thực hiện các tác vụ sau:\n\n1. **Tìm kiếm và cập nhật tin tức**: Tra cứu các tin tức công nghệ mới nhất, các sự kiện nổi bật trên internet hoặc các chủ đề nóng hổi theo thời gian thực.\n2. **Nghiên cứu học thuật**: Tìm kiếm các bài báo khoa học, bài báo tiền ấn phẩm (preprints) trên arXiv, hỗ trợ đọc hiểu, tóm tắt, phân tích sâu và so sánh các nghiên cứu với nhau.\n3. **Theo dõi xu hướng mạng xã hội**: Tìm kiếm các thảo luận, bài đăng nổi bật hoặc theo dõi dòng trạng thái từ các chuyên gia, tài khoản công nghệ uy tín trên Twitter/X.\n4. **Tổng hợp thông tin**: Biên soạn, định dạng các thông tin thu thập được thành các bản tin tóm tắt, báo cáo nghiên cứu hoặc digest một cách trực quan và hệ thống.\n\nHãy cho tôi biết bạn đang quan tâm đến chủ đề hoặc bài báo nghiên cứu nào, tôi sẽ hỗ trợ bạn tìm kiếm và phân tích!",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "M01_lookup_topic_correction",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_lookup_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Nhiều lượt hội thoại nhưng chỉ dùng ý cuối cùng: đổi topic sang diffusion và giữ timeframe hôm nay."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm cho mình tin mới nhất về RAG."
+        },
+        {
+          "role": "user",
+          "content": "Đổi sang diffusion nhé, vẫn là tin hôm nay."
+        },
+        {
+          "role": "user",
+          "content": "Giữ đúng chủ đề diffusion thôi."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "diffusion",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "diffusion",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "diffusion",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "diffusion",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Semiconductor Diffusion Equipment Market Size to Reach US$1.9 Billion by 2033 | Growth Trends & Forecast",
+                "url": "https://www.einpresswire.com/article/929908478/semiconductor-diffusion-equipment-market-size-to-reach-us-1-9-billion-by-2033-growth-trends-forecast",
+                "source": "einpresswire.com",
+                "summary": "to its established semiconductor manufacturing ecosystem, while emerging markets are creating new avenues for expansion. With ongoing advancements in precision thermal processing, wafer manufacturing, and semiconductor localization initiatives, diffusion equipment will remain a critical component of the global semiconductor production landscape. [...] Market Restraints\n\nHigh capital costs and complex equipment qualification procedures remain major challenges for market growth. Semiconductor diffusion equipment requires substantial investment and must undergo extensive testing before integration into manufacturing workflows. Factors such as contamination control, process compatibility, and yield optimization increase equipment validation time. [...] Europe is expanding its semiconductor manufacturing capabilities through strategic investments aimed at strengthening regional supply chains. Germany is emerging as a key semiconductor hub, supported by investments from Intel, Infineon Technologies, and other manufacturers. Rising demand for automotive chips, power semiconductors, and industrial electronics is creating new opportunities for diffusion equipment suppliers.",
+                "score": 0.37903407
+              },
+              {
+                "title": "Sous la pression de Washington, l'Union européenne retarde la diffusion de ses images satellites autour du détroit d'Ormuz",
+                "url": "https://www.bfmtv.com/tech/cybersecurite/sous-la-pression-de-washington-l-union-europeenne-retarde-la-diffusion-de-ses-images-satellites-autour-du-detroit-d-ormuz_AV-202607280421.html",
+                "source": "bfmtv.com",
+                "summary": "Or, plusieurs entreprises américaines spécialisées dans l'imagerie satellitaire, comme Planet Labs ou Vantor, ont déjà fortement limité la diffusion d'images liées à la guerre en Iran. Ces dernières avaient progressivement été contraintes par le gouvernement américain. [...] Il aura suffi de 24 heures pour fissurer un principe qui semblait intangible : celui de l'accès libre aux données du programme spatial européen Copernicus. [...] Ces dernières années, l'essor des satellites commerciaux et des programmes publics comme Copernicus a profondément transformé la couverture des conflits. L'accès gratuit aux images européennes permet à des rédactions, des ONG ou des collectifs d'enquête de vérifier de manière indépendante ce qu'il se passe sur le terrain.",
+                "score": 0.21920416
+              },
+              {
+                "title": "Dynamic ‘breathing’ in nanopore structures can maximize efficiency of molecule separation and diffusion",
+                "url": "https://www.eurekalert.org/news-releases/1137820",
+                "source": "eurekalert.org",
+                "summary": "Researchers find that fluctuations in nanopore structure are the key factor influencing their performance. Peer-Reviewed Publication. Kyoto University.",
+                "score": 0.19465888
+              },
+              {
+                "title": "Dynamic 'breathing' in nanopore structures can maximize efficiency of molecule separation and diffusion",
+                "url": "https://phys.org/news/2026-07-dynamic-nanopore-maximize-efficiency-molecule.html",
+                "source": "phys.org",
+                "summary": "Nanoporous material-based separation technology is vital in many applications because it can precisely distinguish between and separate nearly identical",
+                "score": 0.18830939
+              },
+              {
+                "title": "Dynamic Nanopore Breathing Boosts Efficiency for Molecule Separation and Diffusion",
+                "url": "https://bioengineer.org/dynamic-nanopore-breathing-boosts-efficiency-for-molecule-separation-and-diffusion",
+                "source": "bioengineer.org",
+                "summary": "Dynamic nanopores in metal-organic frameworks (MOFs) are emerging as powerful tools for separating molecules that look almost identical—down to tiny mass",
+                "score": 0.18286322
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M02_fetch_url_filled_later",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_fetch_after_clarification",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu URL ở lượt đầu, nhưng được bổ sung ở lượt sau → dùng fetch đúng link vừa được cung cấp."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài này giúp mình."
+        },
+        {
+          "role": "user",
+          "content": "https://www.openai.com/research/"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ đọc đúng link đó thôi."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://www.openai.com/research/"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://www.openai.com/research/"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://www.openai.com/research/"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://www.openai.com/research/",
+            "items": [
+              {
+                "title": "Research | OpenAI",
+                "url": "https://www.openai.com/research/",
+                "source": "openai.com",
+                "summary": "OpenAI\n\nResearch\n\n# Pioneering research on the path to AGI\n\nWe believe our research will eventually lead to artificial general intelligence, a system that can solve human-level problems. Our mission is to ensure that AGI benefits all of humanity.\n\n[View research index](https://openai.com/research/index/) [Learn about safety](https://openai.com/safety/)\n\n![Illustration representing OpenAI research overview](https://cdn.openai.com/ctf-cdn/research/research-hero-2400.webp?w=3840&q=90&fm=webp)\n\nFocus areas\n\n### We use Deep Learning to leverage large amounts of data and advanced reasoning to train AI systems for task completion.\n\n### GPT\n\nOpenAI’s GPT series models are fast, versatile, and cost-efficient AI systems designed to understand context, generate content, and reason across text, images, and more.\n\n![Hero Art Card SEO 1x1](https://images.ctfassets.net/kftzwdyauwt9/cut4wyUCuBENXfd5CSI7Z/d934ffb49d8b39abea0bc33bb1a5b916/Hero_Art_Card_SEO_1x1.jpg?w=3840&q=90&fm=webp)\n\n[A new class of intelligence for real work\\\\\n\\\\\nReleaseApr 23, 202612 min read](https://openai.com/index/introducing-gpt-5-5/)\n\n![5.4 Thinking Art Card](https://images.ctfassets.net/kftzwdyauwt9/5HSBM48XFBkni6rNv5CAbR/46fe1d133c1440563245262a5fa59c79/5.4_Thinking_Art_Card.png?w=3840&q=90&fm=webp)\n\n[Our most capable and efficient frontier model for professional work\\\\\n\\\\\nReleaseMar 5, 202616 min read](https://openai.com/index/introducing-gpt-5-4/)\n\n![5.3 Instant Art Card](https://images.ctfassets.net/kftzwdyauwt9/72xhlkMHldxPfwGsZttoiI/3ada2b7e0cdb129d0779fbc8b700a7af/5.3_Instant_Art_Card__1_.png?w=3840&q=90&fm=webp)\n\n[Smoother, more useful everyday conversations\\\\\n\\\\\nReleaseMar 3, 20265 min read](https://openai.com/index/gpt-5-3-instant/)\n\n### o series\n\nOpenAI’s o series models are advanced reasoning AI systems that use chain-of-thought processes to solve complex STEM problems through logical, step-by-step analysis.\n\n[Our smartest and most capable models to date with full tool access\\\\\n\\\\\nOpenAI o3 and o4-miniApr 16, 202511 min read](https://openai.com/index/introducing-o3-and-o4-mini/)\n\n![o3-mini > cover image](https://images.ctfassets.net/kftzwdyauwt9/BQXodBZ63FtQq6CGcPQQh/955ea49d3cf09e7ad33129d8a81b4087/o3-mini_1.1.png?w=3840&q=90&fm=webp)\n\n[Pushing the frontier of cost-effective reasoning\\\\\n\\\\\nOpenAI o3-miniJan 31, 20256 min read](https://openai.com/index/openai-o3-mini/)\n\n![OpenAI o1](https://images.ctfassets.net/kftzwdyauwt9/6ERYwPGeSFjSDRzD9ZeSZM/8fc12647977085317692108a4116f2e2/o1_1.1.png?w=3840&q=90&fm=webp)\n\n[Learning to reason with LLMs\\\\\n\\\\\nOpenAI o1Sep 12, 20249 min read](https://openai.com/index/learning-to-reason-with-llms/)\n\n### Visual\n\nOur research on generative modeling for images has led to representation models like CLIP, which makes a map between text and images that an AI can read, and DALL-E, a tool for creating vivid images from text descriptions.\n\n![Images 2.0 blog art card](https://images.ctfassets.net/kftzwdyauwt9/7fPF7LU0YzPr5PrlNT6lo3/823a11178d4aac15d4f4260b9fcc490d/Blog_art_card.png?w=3840&q=90&fm=webp)\n\n[A state-of-the-art model that makes precise, immediately usable visuals\\\\\n\\\\\nChatGPT Images 2.0Apr 21, 202611 min read](https://openai.com/index/introducing-chatgpt-images-2-0/)\n\n![Sora 2 research blog cover art 16 x 9](https://images.ctfassets.net/kftzwdyauwt9/1Q8NDmnyavsoPAKDlWpW18/a1f595376097668d1772c9cac40fc8ee/16_x_9____1_.png?w=3840&q=90&fm=webp)\n\n[Physically accurate, realistic, and controllable with synchronized dialogue and sound effects\\\\\n\\\\\nSora 2Sep 30, 20258 min read](https://openai.com/index/sora-2/)\n\n[A natively multimodal model capable of precise, accurate, photorealistic outputs\\\\\n\\\\\nImage GenerationMar 25, 20256 min read](https://openai.com/index/introducing-4o-image-generation/)\n\n### Audio\n\nOur research on applying AI to audio processing and audio generation has led to developments in automatic speech recognition and original musical compositions.\n\n![Audio Models Art card 16.9](https://images.ctfassets.net/kftz"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M03_papers_result_limit_correction",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_papers_result_limit",
+        "difficulty": "hard",
+        "what_it_tests": "Sửa chủ đề ở lượt sau và trích đúng số lượng kết quả khi gọi papers."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm paper arXiv về alignment."
+        },
+        {
+          "role": "user",
+          "content": "Đổi sang RAG evaluation nhé."
+        },
+        {
+          "role": "user",
+          "content": "Lấy 5 kết quả mới nhất."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "RAG evaluation",
+              "max_results": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "max_results": 5,
+              "sort_by": "submittedDate",
+              "query": "RAG evaluation"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "papers",
+          "args": {
+            "max_results": 5,
+            "sort_by": "submittedDate",
+            "query": "RAG evaluation"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "RAG evaluation",
+            "api_query": "all:RAG AND all:evaluation",
+            "total_results": 2714,
+            "items": [
+              {
+                "arxiv_id": "2607.25041v1",
+                "title": "ScoreShield: Differentially Private Release of Similarity Scores",
+                "summary": "A growing number of applications, such as biometrics and retrieval-augmented generation (RAG), rely on cosine similarity scores computed between vector embeddings of text, images, or audio. These systems return similarity scores through their APIs for ranking and verification. However, such releases can leak information about individual records and enable membership inference attacks. While differential privacy (DP) provides a principled metric for quantifying attack risks, naïve application of DP mechanisms---such as adding i.i.d. Gaussian noise to vector entries---leads to excessive distortion (i.e., low utility) at a given privacy constraint that scales poorly with the number of released scores. We propose \\textsc{ScoreShield}, a perturb-then-project mechanism that adds Gaussian noise calibrated to global sensitivity of the chosen score release regime and then projects the result onto the feasibility set of valid cosine objects. \\textsc{ScoreShield} satisfies $(\\varepsilon,δ)$-DP for releasing similarity score vectors and Gram matrices. We provide utility guarantees for the exact Frobenius metric projection used in the risk analysis, and prove convergence to feasibility for the practical averaged alternating-projection solver used for large-scale Gram releases. For full pairwise cosine Gram release under record-level replacement adjacency, the exact-projection bound improves the $n$-dependence of squared Frobenius risk from $Θ(n^3)$ for the naïve Gaussian baseline to $\\mathcal{O}(n^2)$ for fixed privacy parameters, with sharper local bounds at low-rank Grams. We evaluate the mechanism across RAG, face recognition, semantic retrieval, image similarity, and recommender-system tasks.",
+                "authors": [
+                  "Behrooz Razeghi",
+                  "Parsa Rahimi"
+                ],
+                "published": "2026-07-27T20:02:28Z",
+                "updated": "2026-07-27T20:02:28Z",
+                "url": "http://arxiv.org/abs/2607.25041v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25041v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.IR",
+                "categories": [
+                  "cs.IR",
+                  "cs.CR",
+                  "cs.CV",
+                  "cs.LG"
+                ]
+              },
+              {
+                "arxiv_id": "2607.24984v1",
+                "title": "Automatic Knowledge Graph Construction and Query for Earthquake Catalogs",
+                "summary": "In recent years, the number of events in earthquake catalogs has significantly increased due to the utilization of more effective deep learning based detectors and phase pickers but answering open ended questions such as what characterizes this sequence? remains constrained by rigid spatiotemporal windowing and subjective expert interpretation. We present the first systematic application of graph based retrieval augmented generation GraphRAG directly to raw, tabular catalog records across three independently featured catalogs, a reservoir adjacent swarm, the 2019 Ridgecrest tectonic sequence, and the 2021 Maduo Mw7.4 aftershock sequence. Without the need for manual data structuring, the pipeline builds structurally complete, queryable knowledge graphs for all three. Rigorous evaluation individually verified against catalog derived ground truth and a rule based reference graph exposes failure modes, and four seismology informed prompt fixes eliminate all targeted fabrications while sharply improving mechanism reasoning. A vector RAG baseline demonstrates the graph layers distinctive value, catalog wide summarization and temporal stage comparison. In addition, we have identified two main pitfalls that need attention. GraphRAG thus offers a practical, transferable, near zero cost query interface for earthquake catalogs, where careful prompting ensures the results are consistently accurate and trustworthy.",
+                "authors": [
+                  "Yuxin Zhou",
+                  "Huai Zhang",
+                  "S. Mostafa Mousavi"
+                ],
+                "published": "2026-07-27T18:39:05Z",
+                "updated": "2026-07-27T18:39:05Z",
+                "url": "http://arxiv.org/abs/2607.24984v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.24984v1",
+                "source": "arxiv.org",
+                "primary_category": "physics.geo-ph",
+                "categories": [
+                  "physics.geo-ph",
+                  "cs.AI",
+                  "cs.LG"
+                ]
+              },
+              {
+                "arxiv_id": "2607.24663v1",
+                "title": "A corrective agentic hybrid RAG and an operations-grounded evaluation for a scientific facility",
+                "summary": "Scientific user facilities accumulate decades of operational knowledge that no single search index covers: electronic logbooks, technical documents, internal wikis, operations chat messages, maintenance records, and live control-system data. We present APS-RAG, Advanced Photon Source Retrieval Augmented Generation, a deployed platform that makes the institutional knowledge at the Advanced Photon Source (APS) accessible to staff through natural-language queries, along with an operations-grounded evaluation. The retrieval engine fuses dense, sparse, and knowledge-graph (KG) channels with query-type-adaptive reciprocal-rank fusion, adds a corrective agentic loop, and runs a native-tool ReAct executor over a Model Context Protocol (MCP) tooling layer. We construct APS-Bench, a 50-question, question-answering (QA) dataset with auditable gold answers. Every retrieval-augmented variant numerically improves strict vital-nugget recall over a naive BM25 baseline (63.8%), with the full corrective Agentic GraphRAG scoring (70.3%). The cross-encoder reranker contributes significantly to answer quality: removing it and allowing the LLM to score relevance drastically reduces strict vital recall by 32.8%. The graph channel and corrective loop contribute positively as expected, but the performance gains are marginal. Additionally, we also compare the performance of open-source and closed-source LLMs in final answer synthesis. We release the APS-Bench construction methodology, the six-layer evaluation harness, and the underlying codebase, along with the '/aps-rag' retrieval agent skill framework, to support reproduction and adoption at other facilities. Together, the deployed platform and its operations-grounded evaluation present a promising workflow for trustworthy, statistically grounded AI assistance in facility operations, transferable to other large scientific instruments.",
+                "authors": [
+                  "Rajat Sainju",
+                  "Dariusz Jarosz",
+                  "Hairong Shang",
+                  "Michael Prince",
+                  "Ryan M. Aydelott",
+                  "Mathew J. Cherukara",
+                  "Yine Sun",
+                  "Michael D. Borland"
+                ],
+                "published": "2026-07-27T17:01:30Z",
+                "updated": "2026-07-27T17:01:30Z",
+                "url": "http://arxiv.org/abs/2607.24663v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.24663v1",
+                "source": "arxiv.org",
+                "primary_category": "physics.acc-ph",
+                "categories": [
+                  "physics.acc-ph",
+                  "cs.AI",
+                  "cs.IR"
+                ]
+              },
+              {
+                "arxiv_id": "2607.24449v1",
+                "title": "Evaluating RAG for French immigration law: a benchmark and baseline study",
+                "summary": "International recruitment in France requires navigating a layered legal framework absent from existing legal AI benchmarks. We present a publicly available benchmark and first comparative evaluation for this domain, covering permit-type recommendation, required-document retrieval, and legal citation coverage. Comparing a parametric LLM baseline against dense retrieval augmentation at two model scales (Qwen3.5-9B and -27B) on 52 annotated synthetic profiles, we find that retrieval improves administrative guidance at both scales, most notably permit-type accuracy. Our results confirm that retrieval grounding is important for more reliable administrative guidance in this domain, and motivate further investigation of hybrid retrieval strategies.",
+                "authors": [
+                  "Annia Abtout",
+                  "Julien Delaunay",
+                  "Monika Ewa Rakoczy"
+                ],
+                "published": "2026-07-27T13:55:35Z",
+                "updated": "2026-07-27T13:55:35Z",
+                "url": "http://arxiv.org/abs/2607.24449v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.24449v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.IR",
+                "categories": [
+                  "cs.IR",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.24332v1",
+                "title": "Cross-Attention Calibrated Deduplication for Retrieval-Augmented Generation System",
+                "summary": "Common chunking strategies in Retrieval-Augmented Generation (RAG) systems often create redundant chunks. These redundant chunks make the vector database bigger and slow down retrieval. A common fix is cosine-similarity thresholding. This method reduces each chunk to a single vector, then compares vectors using a similarity score. But a single vector can lose the fine-grained, token-level detail needed to tell a true duplicate apart from a chunk that just shares the same topic. We propose Cross-Attention Calibrated Deduplication (CACD). CACD checks each new chunk against an in-memory pool of chunks already kept, using a cross-encoder instead of a single pooled vector. This keeps token-level detail all the way to the final comparison. CACD combines three parts: the cross-encoder comparison itself, a New Information Score (NIS) that measures how much of a chunk is not explained by a candidate already kept, and a majority vote across several candidates rather than a single best match. NIS is calculated from the attention entropy of the cross-encoder. We tested CACD against five existing filtering methods, nine chunking strategies, and 18 configurations, all on the full SQuAD 1.1 validation set. In our experiments, CACD removes 9.75% of chunks on average. This drop rate is close to other semantic-level methods, and much higher than exact-match filters, which barely remove anything. In these experiments, CACD also processes each configuration in 51.0 seconds on average, about 27% faster than the strongest baseline, NERExact (69.6s), and about 7x faster than cosine-similarity filtering (356.7s). These results come from a single dataset, so we present them as an early comparison, not a general claim. Code for the baseline evaluation and for CACD is available at https://github.com/lehuyphuong/rag_bench and https://github.com/lehuyphuong/cacd_dedup.",
+                "authors": [
+                  "Phuong Le Huy",
+                  "Nam H. Nguyen",
+                  "Quan V. Dang"
+                ],
+                "published": "2026-07-27T12:09:03Z",
+                "updated": "2026-07-27T12:09:03Z",
+                "url": "http://arxiv.org/abs/2607.24332v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.24332v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL",
+                  "cs.LG"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ]
+    },
+    {
+      "id": "M04_paper_text_id_and_page_correction",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_paper_text_limit",
+        "difficulty": "hard",
+        "what_it_tests": "Ghép arXiv id và số trang từ nhiều lượt hội thoại rồi gọi paper_text đúng tham số."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đọc paper này cho mình."
+        },
+        {
+          "role": "user",
+          "content": "arXiv:1706.03762"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 2 trang đầu thôi."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "1706.03762",
+              "max_pages": 2
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "max_pages": 2,
+              "arxiv_url": "1706.03762"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "paper_text",
+          "args": {
+            "max_pages": 2,
+            "arxiv_url": "1706.03762"
+          },
+          "result": {
+            "tool": "get_arxiv_paper_text",
+            "arxiv_id": "1706.03762",
+            "url": "https://arxiv.org/abs/1706.03762",
+            "pdf_url": "https://arxiv.org/pdf/1706.03762.pdf",
+            "pdf_path": "D:\\PKDUY\\VinUni\\AI-thucchien\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\arxiv_papers\\1706.03762.pdf",
+            "txt_path": "D:\\PKDUY\\VinUni\\AI-thucchien\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\arxiv_papers\\1706.03762.txt",
+            "page_count": 15,
+            "pages_read": 2,
+            "chars_returned": 7118,
+            "items": [
+              {
+                "title": "arXiv paper 1706.03762",
+                "url": "https://arxiv.org/abs/1706.03762",
+                "source": "arxiv.org",
+                "summary": "Provided proper attribution is provided, Google hereby grants permission to\nreproduce the tables and figures in this paper solely for use in journalistic or\nscholarly works.\nAttention Is All You Need\nAshish Vaswani∗\nGoogle Brain\navaswani@google.com\nNoam Shazeer∗\nGoogle Brain\nnoam@google.com\nNiki Parmar∗\nGoogle Research\nnikip@google.com\nJakob Uszkoreit∗\nGoogle Research\nusz@google.com\nLlion Jones∗\nGoogle Research\nllion@google.com\nAidan N. Gomez∗ †\nUniversity of Toronto\naidan@cs.toronto.edu\nŁukasz Kaiser∗\nGoogle Brain\nlukaszkaiser@google.com\nIllia Polosukhin∗ ‡\nillia.polosukhin@gmail.com\nAbstract\nThe dominant sequence transduction models are based on complex recurrent or\nconvolutional neural networks that include an encoder and a decoder. The best\nperforming models also connect the encoder and decoder through an attention\nmechanism. We propose a new simple network architecture, the Transformer,\nbased solely on attention mechanisms, dispensing with recurrence and convolutions\nentirely. Experiments on two machine translation tasks show these models to\nbe superior in quality while being more parallelizable and requiring significantly\nless time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-\nto-German translation task, improving over the existing best results, including\nensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task,\nour model establishes a new single-model state-of-the-art BLEU score of 41.8 after\ntraining for 3.5 days on eight GPUs, a small fraction of the training costs of the\nbest models from the literature. We show that the Transformer generalizes well to\nother tasks by applying it successfully to English constituency parsing both with\nlarge and limited training data.\n∗Equal contribution. Listing order is random. Jakob proposed replacing RNNs with self-attention and started\nthe effort to evaluate this idea. Ashish, with Illia, designed and implemented the first Transformer models and\nhas been crucially involved in every aspect of this work. Noam proposed scaled dot-product attention, multi-head\nattention and the parameter-free position representation and became the other person involved in nearly every\ndetail. Niki designed, implemented, tuned and evaluated countless model variants in our original codebase and\ntensor2tensor. Llion also experimented with novel model variants, was responsible for our initial codebase, and\nefficient inference and visualizations. Lukasz and Aidan spent countless long days designing various parts of and\nimplementing tensor2tensor, replacing our earlier codebase, greatly improving results and massively accelerating\nour research.\n†Work performed while at Google Brain.\n‡Work performed while at Google Research.\n31st Conference on Neural Information Processing Systems (NIPS 2017), Long Beach, CA, USA.\narXiv:1706.03762v7  [cs.CL]  2 Aug 2023\n\n1 Introduction\nRecurrent neural networks, long short-term memory [13] and gated recurrent [7] neural networks\nin particular, have been firmly established as state of the art approaches in sequence modeling and\ntransduction problems such as language modeling and machine translation [ 35, 2, 5]. Numerous\nefforts have since continued to push the boundaries of recurrent language models and encoder-decoder\narchitectures [38, 24, 15].\nRecurrent models typically factor computation along the symbol positions of the input and output\nsequences. Aligning the positions to steps in computation time, they generate a sequence of hidden\nstates ht, as a function of the previous hidden state ht−1 and the input for position t. This inherently\nsequential nature precludes parallelization within training examples, which becomes critical at longer\nsequence lengths, as memory constraints limit batching across examples. Recent work has achieved\nsignificant improvements in computational efficiency through factorization tricks [21] and conditional\ncomputation [32], while also improving model performance in case of the latter. The fundamental\nconstraint of sequential computation, however, remains.\nAttention mechanisms have become an integral part of compelling sequence modeling and transduc-\ntion models in various tasks, allowing modeling of dependencies without regard to their distance in\nthe input or output sequences [2, 19]. In all but a few cases [27], however, such attention mechanisms\nare used in conjunction with a recurrent network.\nIn this work we propose the Transformer, a model architecture eschewing recurrence and instead\nrelying entirely on an attention mechanism to draw global dependencies between input and output.\nThe Transformer allows for significantly more parallelization and can reach a new state of the art in\ntranslation quality after being trained for as little as twelve hours on eight P100 GPUs.\n2 Background\nThe goal of reducing sequential computation also forms the foundation of the Extended Neural GPU\n[16], ByteNet [18] and ConvS2S [9], all of which use convolutional neural networks as basic building\nblock, computing hidden representations in parallel for all input and output positions. In these models,\nthe number of operations required to relate signals from two arbitrary input or output positions grows\nin the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes\nit more difficult to learn dependencies between distant positions [ 12]. In the Transformer this is\nreduced to a constant number of operations, albeit at the cost of reduced effective resolution due\nto averaging attention-weighted positions, an effect we counteract with Multi-Head Attention as\ndescribed in section 3.2.\nSelf-attention, sometimes called intra-attention is an attention mechanism relating different positions\nof a single sequence in order to compute a representation of the sequence. Self-attention has been\nused successfully in a variety of tasks including reading comprehension, abstractive summarization,\ntextual entailment and learning task-independent sentence representations [4, 27, 28, 22].\nEnd-to-end memory networks are based on a recurrent attention mechanism instead of sequence-\naligned recurrence and have been shown to perform well on simple-language question answering and\nlanguage modeling tasks [34].\nTo the best of our knowledge, however, the Transformer is the first transduction model relying\nentirely on self-attention to compute representations of its input and output without using sequence-\naligned RNNs or convolution. In the following sections, we will describe the Transformer, motivate\nself-attention and discuss its advantages over models such as [17, 18] and [9].\n3 Model Architecture\nMost competitive neural sequence transduction models have an encoder-decoder structure [5, 2, 35].\nHere, the encoder maps an input sequence of symbol representations (x1, ..., xn) to a sequence\nof continuous representations z = (z1, ..., zn). Given z, the decoder then generates an output\nsequence (y1, ..., ym) of symbols one element at a time. At each step the model is auto-regressive\n[10], consuming the previously generated symbols as additional input when generating the next.\n2"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M05_out_of_scope_coding_request",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_out_of_scope_coding",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu lập trình ngoài phạm vi research NCKH → từ chối, không gọi tool."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Viết cho mình một hàm Python tính Fibonacci bằng recursion."
+        },
+        {
+          "role": "user",
+          "content": "Cứ viết code luôn, không cần tra cứu gì cả."
+        },
+        {
+          "role": "user",
+          "content": "Trả lời ngắn gọn thôi."
+        }
+      ],
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Dưới đây là hàm Python tính Fibonacci bằng đệ quy ngắn gọn:\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n - 1) + fibonacci(n - 2)\n```",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G06_paper_review_methodology",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "paper_review_methodology",
+        "difficulty": "medium",
+        "what_it_tests": "Người dùng đã đưa đủ paper text và yêu cầu review theo methodology → gọi paper_review với focus=methodology; không bắt buộc paper_id khi user không cung cấp."
+      },
+      "input": "Đọc và review paper sau, tập trung vào methodology. Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_review",
+            "args": {
+              "focus": "methodology",
+              "text": "Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence."
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "paper_review",
+            "args": {
+              "focus": "methodology",
+              "text": "Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence."
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "paper_review",
+          "args": {
+            "focus": "methodology",
+            "text": "Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence."
+          },
+          "result": {
+            "tool": "review_paper_text",
+            "paper_id": null,
+            "focus": "methodology",
+            "review": {
+              "abstract": "We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence.",
+              "methodology_excerpt": "",
+              "evaluation_excerpt": "",
+              "limitations_excerpt": "",
+              "conclusion_excerpt": "",
+              "focus_excerpt": "No clearly labelled section was found in the supplied excerpt."
+            },
+            "sections_detected": [
+              "abstract"
+            ],
+            "evidence": {
+              "method_signals": [
+                "Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation.",
+                "Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels.",
+                "Results: The benchmark exposes brittle retrieval on long context inputs."
+              ],
+              "result_sentences": [
+                "Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels."
+              ],
+              "limitation_sentences": [
+                "Limitations: It is English only and does not cover multimodal evidence."
+              ]
+            },
+            "quality_flags": [],
+            "source_boundary": "All excerpts are extracted from the supplied text. Verify claims against the original paper, including tables, figures and references.",
+            "chars_analyzed": 367
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_paper_review_limitations_multiturn",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "paper_review_limitations_multiturn",
+        "difficulty": "hard",
+        "what_it_tests": "Nhiều lượt hội thoại, nhưng latest turn chốt focus=limitations và giữ nguyên paper text đã cung cấp; không bắt buộc paper_id."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Mình có một đoạn paper, hãy review phần limitations."
+        },
+        {
+          "role": "user",
+          "content": "Abstract: We study whether smaller context windows improve grounded summarization. Method: We compare a sparse retriever, a dense retriever, and a reranker on 600 QA examples. Results: Dense retrieval improves answer faithfulness by 6.8 points. Limitations: The study only covers English benchmarks and omits human preference analysis."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ tập trung vào limitations thôi."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_review",
+            "args": {
+              "focus": "limitations",
+              "text": "Abstract: We study whether smaller context windows improve grounded summarization. Method: We compare a sparse retriever, a dense retriever, and a reranker on 600 QA examples. Results: Dense retrieval improves answer faithfulness by 6.8 points. Limitations: The study only covers English benchmarks and omits human preference analysis."
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "paper_review",
+            "args": {
+              "focus": "limitations",
+              "text": "Abstract: We study whether smaller context windows improve grounded summarization. Method: We compare a sparse retriever, a dense retriever, and a reranker on 600 QA examples. Results: Dense retrieval improves answer faithfulness by 6.8 points. Limitations: The study only covers English benchmarks and omits human preference analysis."
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "paper_review",
+          "args": {
+            "focus": "limitations",
+            "text": "Abstract: We study whether smaller context windows improve grounded summarization. Method: We compare a sparse retriever, a dense retriever, and a reranker on 600 QA examples. Results: Dense retrieval improves answer faithfulness by 6.8 points. Limitations: The study only covers English benchmarks and omits human preference analysis."
+          },
+          "result": {
+            "tool": "review_paper_text",
+            "paper_id": null,
+            "focus": "limitations",
+            "review": {
+              "abstract": "We study whether smaller context windows improve grounded summarization. Method: We compare a sparse retriever, a dense retriever, and a reranker on 600 QA examples. Results: Dense retrieval improves answer faithfulness by 6.8 points. Limitations: The study only covers English benchmarks and omits human preference analysis.",
+              "methodology_excerpt": "",
+              "evaluation_excerpt": "",
+              "limitations_excerpt": "",
+              "conclusion_excerpt": "",
+              "focus_excerpt": "No clearly labelled section was found in the supplied excerpt."
+            },
+            "sections_detected": [
+              "abstract"
+            ],
+            "evidence": {
+              "method_signals": [
+                "Results: Dense retrieval improves answer faithfulness by 6.8 points."
+              ],
+              "result_sentences": [
+                "Results: Dense retrieval improves answer faithfulness by 6.8 points."
+              ],
+              "limitation_sentences": [
+                "Limitations: The study only covers English benchmarks and omits human preference analysis."
+              ]
+            },
+            "quality_flags": [],
+            "source_boundary": "All excerpts are extracted from the supplied text. Verify claims against the original paper, including tables, figures and references.",
+            "chars_analyzed": 335
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_paper_compare_two_cards",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "paper_compare_single_turn",
+        "difficulty": "medium",
+        "what_it_tests": "Người dùng đã đưa 2 paper cards sẵn và cấm tìm thêm nguồn ngoài → phải gọi paper_compare, không gọi papers. Không chấm cứng headline vì model có thể tự đặt tiêu đề khác."
+      },
+      "input": "So sánh hai paper cards sau theo methodology và results. Không tìm thêm trên arXiv, chỉ dùng đúng 2 cards đã cho: 1) {\"title\": \"RAGBench\", \"summary\": \"Benchmark for retrieval augmented generation evaluation.\", \"url\": \"https://arxiv.org/abs/2401.00001\", \"arxiv_id\": \"2401.00001\"} 2) {\"title\": \"ARES\", \"summary\": \"Evaluation framework for RAG systems.\", \"url\": \"https://arxiv.org/abs/2402.00002\", \"arxiv_id\": \"2402.00002\"}",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_compare",
+            "args": {
+              "criteria": [
+                "methodology",
+                "results"
+              ]
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "paper_compare",
+            "args": {
+              "criteria": [
+                "methodology",
+                "results"
+              ],
+              "headline": "So sánh RAGBench và ARES",
+              "papers": [
+                {
+                  "arxiv_id": "2401.00001",
+                  "title": "RAGBench",
+                  "summary": "Benchmark for retrieval augmented generation evaluation.",
+                  "url": "https://arxiv.org/abs/2401.00001"
+                },
+                {
+                  "title": "ARES",
+                  "url": "https://arxiv.org/abs/2402.00002",
+                  "summary": "Evaluation framework for RAG systems.",
+                  "arxiv_id": "2402.00002"
+                }
+              ]
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "paper_compare",
+          "args": {
+            "criteria": [
+              "methodology",
+              "results"
+            ],
+            "headline": "So sánh RAGBench và ARES",
+            "papers": [
+              {
+                "arxiv_id": "2401.00001",
+                "title": "RAGBench",
+                "summary": "Benchmark for retrieval augmented generation evaluation.",
+                "url": "https://arxiv.org/abs/2401.00001"
+              },
+              {
+                "title": "ARES",
+                "url": "https://arxiv.org/abs/2402.00002",
+                "summary": "Evaluation framework for RAG systems.",
+                "arxiv_id": "2402.00002"
+              }
+            ]
+          },
+          "result": {
+            "tool": "compare_papers",
+            "headline": "So sánh RAGBench và ARES",
+            "criteria": [
+              "methodology",
+              "results"
+            ],
+            "rows": [
+              {
+                "title": "RAGBench",
+                "source": "2401.00001",
+                "methodology": "Not detected in the supplied evidence.",
+                "results": "Not detected in the supplied evidence."
+              },
+              {
+                "title": "ARES",
+                "source": "2402.00002",
+                "methodology": "Not detected in the supplied evidence.",
+                "results": "Not detected in the supplied evidence."
+              }
+            ],
+            "markdown": "| Paper | Method | Reported results | Source |\n| --- | --- | --- | --- |\n| RAGBench | Not detected in the supplied evidence. | Not detected in the supplied evidence. | 2401.00001 |\n| ARES | Not detected in the supplied evidence. | Not detected in the supplied evidence. | 2402.00002 |",
+            "coverage": {
+              "papers": 2,
+              "criteria": 2,
+              "missing_cells": 4
+            },
+            "quality_flags": [
+              "4 comparison cell(s) lack supplied evidence; they were not inferred.",
+              "Comparison is based on discovery-level metadata/abstracts; review full text for a stronger survey."
+            ],
+            "source_boundary": "Rows contain only supplied paper metadata, excerpts, and evidence. They are not a citation graph, quality ranking, or independent replication."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_paper_compare_multiturn_latest_criteria",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "paper_compare_multiturn",
+        "difficulty": "hard",
+        "what_it_tests": "Hai lượt đầu cung cấp 2 cards, lượt cuối đổi criteria và cấm tìm thêm → phải gọi paper_compare đúng criteria. Không ép headline cố định."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Paper A card: {\"title\": \"RAGBench\", \"summary\": \"Benchmark for retrieval augmented generation evaluation.\", \"url\": \"https://arxiv.org/abs/2401.00001\", \"arxiv_id\": \"2401.00001\"}"
+        },
+        {
+          "role": "user",
+          "content": "Paper B card: {\"title\": \"ARES\", \"summary\": \"Evaluation framework for RAG systems.\", \"url\": \"https://arxiv.org/abs/2402.00002\", \"arxiv_id\": \"2402.00002\"}"
+        },
+        {
+          "role": "user",
+          "content": "So sánh hai paper trên, nhưng chỉ theo results và limitations. Không được tìm thêm paper mới."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_compare",
+            "args": {
+              "criteria": [
+                "results",
+                "limitations"
+              ]
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "paper_compare",
+            "args": {
+              "criteria": [
+                "results",
+                "limitations"
+              ],
+              "papers": [
+                {
+                  "url": "https://arxiv.org/abs/2401.00001",
+                  "summary": "Benchmark for retrieval augmented generation evaluation.",
+                  "arxiv_id": "2401.00001",
+                  "title": "RAGBench"
+                },
+                {
+                  "arxiv_id": "2402.00002",
+                  "title": "ARES",
+                  "summary": "Evaluation framework for RAG systems.",
+                  "url": "https://arxiv.org/abs/2402.00002"
+                }
+              ],
+              "headline": "So sánh RAGBench và ARES"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "paper_compare",
+          "args": {
+            "criteria": [
+              "results",
+              "limitations"
+            ],
+            "papers": [
+              {
+                "url": "https://arxiv.org/abs/2401.00001",
+                "summary": "Benchmark for retrieval augmented generation evaluation.",
+                "arxiv_id": "2401.00001",
+                "title": "RAGBench"
+              },
+              {
+                "arxiv_id": "2402.00002",
+                "title": "ARES",
+                "summary": "Evaluation framework for RAG systems.",
+                "url": "https://arxiv.org/abs/2402.00002"
+              }
+            ],
+            "headline": "So sánh RAGBench và ARES"
+          },
+          "result": {
+            "tool": "compare_papers",
+            "headline": "So sánh RAGBench và ARES",
+            "criteria": [
+              "results",
+              "limitations"
+            ],
+            "rows": [
+              {
+                "title": "RAGBench",
+                "source": "2401.00001",
+                "results": "Not detected in the supplied evidence.",
+                "limitations": "Not detected in the supplied evidence."
+              },
+              {
+                "title": "ARES",
+                "source": "2402.00002",
+                "results": "Not detected in the supplied evidence.",
+                "limitations": "Not detected in the supplied evidence."
+              }
+            ],
+            "markdown": "| Paper | Reported results | Limitations | Source |\n| --- | --- | --- | --- |\n| RAGBench | Not detected in the supplied evidence. | Not detected in the supplied evidence. | 2401.00001 |\n| ARES | Not detected in the supplied evidence. | Not detected in the supplied evidence. | 2402.00002 |",
+            "coverage": {
+              "papers": 2,
+              "criteria": 2,
+              "missing_cells": 4
+            },
+            "quality_flags": [
+              "4 comparison cell(s) lack supplied evidence; they were not inferred.",
+              "Comparison is based on discovery-level metadata/abstracts; review full text for a stronger survey."
+            ],
+            "source_boundary": "Rows contain only supplied paper metadata, excerpts, and evidence. They are not a citation graph, quality ranking, or independent replication."
+          }
+        }
+      ]
+    }
+  ]
+}

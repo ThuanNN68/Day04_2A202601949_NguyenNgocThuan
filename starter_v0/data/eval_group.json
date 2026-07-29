@@ -10,8 +10,8 @@
       "suite": "group",
       "query": "Những tin mới nhất về RAG evaluation trên web là gì?",
       "failure_type": "wrong_tool",
-      "expect": {"tool_calls": [{"name": "lookup", "args": {"query": "RAG evaluation", "topic": "news", "timeframe": "day"}}]},
-      "metadata": {"skill": "lookup_research_news", "difficulty": "medium", "what_it_tests": "Câu hỏi về tin mới của một chủ đề nghiên cứu → dùng lookup với topic=news và timeframe=day."}
+      "expect": {"tool_calls": [{"name": "lookup", "args": {"query": "RAG evaluation", "topic": "news"}}]},
+      "metadata": {"skill": "lookup_research_news", "difficulty": "medium", "what_it_tests": "Câu hỏi về tin mới của một chủ đề nghiên cứu → phải route sang lookup với topic=news; timeframe có thể do model chọn day/week."}
     },
     {
       "id": "G02_fetch_specific_url",
@@ -28,8 +28,8 @@
       "suite": "group",
       "query": "Tìm các paper arXiv về benchmark cho AI agents.",
       "failure_type": "wrong_tool",
-      "expect": {"tool_calls": [{"name": "papers", "args": {"query": "benchmark for AI agents"}}]},
-      "metadata": {"skill": "papers_arxiv_search", "difficulty": "medium", "what_it_tests": "Yêu cầu tìm paper/preprint → dùng papers để search arXiv theo chủ đề."}
+      "expect": {"tool_calls": [{"name": "papers", "args": {}}]},
+      "metadata": {"skill": "papers_arxiv_search", "difficulty": "medium", "what_it_tests": "Yêu cầu tìm paper/preprint → route đúng tool papers; không chấm cứng paraphrase của query."}
     },
     {
       "id": "G04_paper_text_page_limit",
@@ -120,8 +120,8 @@
       "suite": "group",
       "query": "Đọc và review paper sau, tập trung vào methodology. Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence.",
       "failure_type": "wrong_tool",
-      "expect": {"tool_calls": [{"name": "paper_review", "args": {"focus": "methodology", "paper_id": "ragbench-2024", "text": "Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence."}}]},
-      "metadata": {"skill": "paper_review_methodology", "difficulty": "medium", "what_it_tests": "Người dùng đã đưa đủ paper text và yêu cầu review theo methodology → gọi paper_review với focus=methodology."}
+      "expect": {"tool_calls": [{"name": "paper_review", "args": {"focus": "methodology", "text": "Abstract: We present RAGBench, a benchmark for retrieval augmented generation evaluation. Method: The benchmark contains 1,200 QA pairs across multi-hop and single-hop tasks, with retrieval quality and groundedness labels. Results: The benchmark exposes brittle retrieval on long context inputs. Limitations: It is English only and does not cover multimodal evidence."}}]},
+      "metadata": {"skill": "paper_review_methodology", "difficulty": "medium", "what_it_tests": "Người dùng đã đưa đủ paper text và yêu cầu review theo methodology → gọi paper_review với focus=methodology; không bắt buộc paper_id khi user không cung cấp."}
     },
     {
       "id": "G07_paper_review_limitations_multiturn",
@@ -133,17 +133,17 @@
         {"role": "user", "content": "Chỉ tập trung vào limitations thôi."}
       ],
       "failure_type": "wrong_arg_value",
-      "expect": {"tool_calls": [{"name": "paper_review", "args": {"focus": "limitations", "paper_id": "context-window-2024", "text": "Abstract: We study whether smaller context windows improve grounded summarization. Method: We compare a sparse retriever, a dense retriever, and a reranker on 600 QA examples. Results: Dense retrieval improves answer faithfulness by 6.8 points. Limitations: The study only covers English benchmarks and omits human preference analysis."}}]},
-      "metadata": {"skill": "paper_review_limitations_multiturn", "difficulty": "hard", "what_it_tests": "Nhiều lượt hội thoại, nhưng latest turn chốt focus=limitations và giữ nguyên paper text đã cung cấp."}
+      "expect": {"tool_calls": [{"name": "paper_review", "args": {"focus": "limitations", "text": "Abstract: We study whether smaller context windows improve grounded summarization. Method: We compare a sparse retriever, a dense retriever, and a reranker on 600 QA examples. Results: Dense retrieval improves answer faithfulness by 6.8 points. Limitations: The study only covers English benchmarks and omits human preference analysis."}}]},
+      "metadata": {"skill": "paper_review_limitations_multiturn", "difficulty": "hard", "what_it_tests": "Nhiều lượt hội thoại, nhưng latest turn chốt focus=limitations và giữ nguyên paper text đã cung cấp; không bắt buộc paper_id."}
     },
     {
       "id": "G08_paper_compare_two_cards",
       "phase": "B",
       "suite": "group",
-      "query": "So sánh hai paper cards sau theo methodology và results: 1) {\"title\": \"RAGBench\", \"summary\": \"Benchmark for retrieval augmented generation evaluation.\", \"url\": \"https://arxiv.org/abs/2401.00001\", \"arxiv_id\": \"2401.00001\"} 2) {\"title\": \"ARES\", \"summary\": \"Evaluation framework for RAG systems.\", \"url\": \"https://arxiv.org/abs/2402.00002\", \"arxiv_id\": \"2402.00002\"}",
+      "query": "So sánh hai paper cards sau theo methodology và results. Không tìm thêm trên arXiv, chỉ dùng đúng 2 cards đã cho: 1) {\"title\": \"RAGBench\", \"summary\": \"Benchmark for retrieval augmented generation evaluation.\", \"url\": \"https://arxiv.org/abs/2401.00001\", \"arxiv_id\": \"2401.00001\"} 2) {\"title\": \"ARES\", \"summary\": \"Evaluation framework for RAG systems.\", \"url\": \"https://arxiv.org/abs/2402.00002\", \"arxiv_id\": \"2402.00002\"}",
       "failure_type": "wrong_tool",
-      "expect": {"tool_calls": [{"name": "paper_compare", "args": {"papers": [{"title": "RAGBench", "summary": "Benchmark for retrieval augmented generation evaluation.", "url": "https://arxiv.org/abs/2401.00001", "arxiv_id": "2401.00001"}, {"title": "ARES", "summary": "Evaluation framework for RAG systems.", "url": "https://arxiv.org/abs/2402.00002", "arxiv_id": "2402.00002"}], "criteria": ["methodology", "results"], "headline": "RAG comparison"}}]},
-      "metadata": {"skill": "paper_compare_single_turn", "difficulty": "medium", "what_it_tests": "Người dùng đã đưa 2 paper cards sẵn → gọi paper_compare để so sánh theo methodology và results."}
+      "expect": {"tool_calls": [{"name": "paper_compare", "args": {"criteria": ["methodology", "results"]}}]},
+      "metadata": {"skill": "paper_compare_single_turn", "difficulty": "medium", "what_it_tests": "Người dùng đã đưa 2 paper cards sẵn và cấm tìm thêm nguồn ngoài → phải gọi paper_compare, không gọi papers. Không chấm cứng headline vì model có thể tự đặt tiêu đề khác."}
     },
     {
       "id": "G09_paper_compare_multiturn_latest_criteria",
@@ -152,11 +152,11 @@
       "turns": [
         {"role": "user", "content": "Paper A card: {\"title\": \"RAGBench\", \"summary\": \"Benchmark for retrieval augmented generation evaluation.\", \"url\": \"https://arxiv.org/abs/2401.00001\", \"arxiv_id\": \"2401.00001\"}"},
         {"role": "user", "content": "Paper B card: {\"title\": \"ARES\", \"summary\": \"Evaluation framework for RAG systems.\", \"url\": \"https://arxiv.org/abs/2402.00002\", \"arxiv_id\": \"2402.00002\"}"},
-        {"role": "user", "content": "So sánh hai paper trên, nhưng chỉ theo results và limitations."}
+        {"role": "user", "content": "So sánh hai paper trên, nhưng chỉ theo results và limitations. Không được tìm thêm paper mới."}
       ],
       "failure_type": "wrong_arg_value",
-      "expect": {"tool_calls": [{"name": "paper_compare", "args": {"papers": [{"title": "RAGBench", "summary": "Benchmark for retrieval augmented generation evaluation.", "url": "https://arxiv.org/abs/2401.00001", "arxiv_id": "2401.00001"}, {"title": "ARES", "summary": "Evaluation framework for RAG systems.", "url": "https://arxiv.org/abs/2402.00002", "arxiv_id": "2402.00002"}], "criteria": ["results", "limitations"], "headline": "Paper comparison"}}]},
-      "metadata": {"skill": "paper_compare_multiturn", "difficulty": "hard", "what_it_tests": "Hai lượt đầu cung cấp 2 cards, lượt cuối đổi tiêu chí sang results + limitations và model phải gọi paper_compare đúng criteria."}
+      "expect": {"tool_calls": [{"name": "paper_compare", "args": {"criteria": ["results", "limitations"]}}]},
+      "metadata": {"skill": "paper_compare_multiturn", "difficulty": "hard", "what_it_tests": "Hai lượt đầu cung cấp 2 cards, lượt cuối đổi criteria và cấm tìm thêm → phải gọi paper_compare đúng criteria. Không ép headline cố định."}
     }
   ]
 }

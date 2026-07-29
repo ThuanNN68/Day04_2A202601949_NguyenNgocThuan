@@ -100,8 +100,11 @@ def case_messages(case: dict[str, Any]) -> list[dict[str, str]]:
 def normalize_value(value: Any) -> Any:
     if isinstance(value, str):
         return value.strip().lower()
+    if isinstance(value, dict):
+        return {key: normalize_value(item) for key, item in sorted(value.items())}
     if isinstance(value, list):
-        return sorted(normalize_value(item) for item in value)
+        normalized_items = [normalize_value(item) for item in value]
+        return sorted(normalized_items, key=lambda item: json.dumps(item, ensure_ascii=False, sort_keys=True))
     return value
 
 
@@ -268,7 +271,7 @@ def main() -> None:
     parser.add_argument("--model", default=None)
     parser.add_argument("--system-prompt", type=Path, default=ARTIFACTS_DIR / "system_prompt.md")
     parser.add_argument("--tools", type=Path, default=ARTIFACTS_DIR / "tools.yaml")
-    parser.add_argument("--eval-cases", type=Path, default=DATA_DIR / "eval_base.json")
+    parser.add_argument("--eval-cases", type=Path, default=DATA_DIR / "eval_group.json")
     parser.add_argument("--runs-dir", type=Path, default=ROOT / "runs")
     args = parser.parse_args()
 
