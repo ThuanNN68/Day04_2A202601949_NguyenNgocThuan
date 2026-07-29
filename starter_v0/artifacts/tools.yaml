@@ -53,7 +53,8 @@ tools:
       Search for tweets/posts ABOUT a specific topic, keyword, or hashtag across Twitter/X.
       Use this when the user asks to find what people are saying about a subject on social media.
       Do NOT use this to get posts from a specific account (use 'timeline' for that).
-      Only combine with 'lookup' when the user explicitly requests BOTH web and Twitter results.
+      Do NOT call this tool if the user previously switched away from Twitter or asked to drop social media.
+      Only combine with 'lookup' when the user explicitly requests BOTH web and Twitter results in the latest request.
     parameters:
       type: object
       properties:
@@ -77,7 +78,7 @@ tools:
     description: >
       Search the general web for information, news, or any topic.
       Use this as the default tool for web-based information retrieval.
-      Do NOT combine with 'social_search' unless the user explicitly requests both sources simultaneously.
+      Do NOT combine with 'social_search' unless the user explicitly requests both sources simultaneously in the current turn.
       Do NOT use this for academic papers (use 'papers') or direct URLs (use 'fetch').
     parameters:
       type: object

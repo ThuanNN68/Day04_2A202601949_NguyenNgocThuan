@@ -81,12 +81,12 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 
 Fill from `artifacts/version_log.csv` and `runs/*.json`.
 
-| Version | Prompt/tool change                                                                                                                                                                                                                                          | Hypothesis                                                                                                               | Metric name   | Before | After | Run File                                             |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------- | -----: | ----: | ---------------------------------------------------- |
-| v0      | baseline                                                                                                                                                                                                                                                    | Baseline initial setup                                                                                                   | case_accuracy |   0.00 |  0.90 | `runs/v0_B_base_openai_20260729T100558112616.json` |
-| v1      | Thêm Section 6 Guardrails vào`system_prompt.md`; siết rule Parallel Execution (chỉ gọi cả 2 khi user nói rõ cả 2 nguồn); thêm Query keyword rule (extract keyword ngắn, bỏ filler); mô tả `tools.yaml` chi tiết hơn với routing hints | Siết rule sẽ fix R03 (model tự gọi thêm`social_search`) và R13 (query bị dịch sang tiếng Việt) → đạt 100% | case_accuracy |   0.90 |  1.00 | `runs/v_B_base_openai_20260729T122405629969.json`  |
-| v2      | Thêm tool bonus `paper_review` và `paper_compare` vào `tools.yaml`; bổ sung routing rules cho 2 tool mới trong `system_prompt.md` (`papers` → `paper_text` → `paper_review` → `paper_compare`) | Thêm tool mới sẽ mở rộng khả năng research pipeline nhưng có thể gây `extra_tool_call` ở M06 khi model chọn sai tool | case_accuracy |   1.00 |  0.95 | `runs/v2_B_base_openai_20260729T124652257529.json` |
-| v3      |                                                                                                                                                                                                                                                             |                                                                                                                          |               |        |       |                                                      |
+| Version | Prompt/tool change                                                                                                                                                                                                                                          | Hypothesis                                                                                                                                    | Metric name   | Before | After | Run File                                             |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | -----: | ----: | ---------------------------------------------------- |
+| v0      | baseline                                                                                                                                                                                                                                                    | Baseline initial setup                                                                                                                        | case_accuracy |   0.00 |  0.90 | `runs/v0_B_base_openai_20260729T100558112616.json` |
+| v1      | Thêm Section 6 Guardrails vào`system_prompt.md`; siết rule Parallel Execution (chỉ gọi cả 2 khi user nói rõ cả 2 nguồn); thêm Query keyword rule (extract keyword ngắn, bỏ filler); mô tả `tools.yaml` chi tiết hơn với routing hints | Siết rule sẽ fix R03 (model tự gọi thêm`social_search`) và R13 (query bị dịch sang tiếng Việt) → đạt 100%                      | case_accuracy |   0.90 |  1.00 | `runs/v_B_base_openai_20260729T122405629969.json`  |
+| v2      | Thêm tool bonus`paper_review` và `paper_compare` vào `tools.yaml`; bổ sung routing rules cho 2 tool mới trong `system_prompt.md` (`papers` → `paper_text` → `paper_review` → `paper_compare`)                                       | Thêm tool mới sẽ mở rộng khả năng research pipeline nhưng có thể gây`extra_tool_call` ở M06 khi model chọn sai tool            | case_accuracy |   1.00 |  0.95 | `runs/v2_B_base_openai_20260729T124652257529.json` |
+| v3      | Thêm quy tắc**Source Switching & Persistence (STRICT)** trong `system_prompt.md` và bổ sung điều kiện loại trừ nguồn cũ trong `tools.yaml` (`social_search` & `lookup`)                                                            | Khắc phục triệt để lỗi`extra_tool_call` ở test case M06 khi chuyển đổi nguồn trong hội thoại multi-turn → đạt 100% accuracy | case_accuracy |   0.95 |  1.00 | `v3_B_base_openai_20260729T125130073083.json`      |
 
 ## B2. Failure analysis
 
@@ -96,6 +96,7 @@ Use actual failures from `results[*].result.failures`.
 | --------------------------- | -------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | R03_web_news_routing        | wrong_tool (`extra_tool_call`) | `lookup` ✅ + `social_search` ❌ | User chỉ hỏi tin web (`"Tin tức AI hôm nay"`), model tự ý gọi thêm `social_search` vì cho rằng "nổi bật" = cần Twitter     | Siết rule Parallel Execution: chỉ gọi cả 2 khi user**nói rõ** cả 2 nguồn; thêm ví dụ phản ví dụ trực tiếp trong prompt |
 | R13_parallel_web_and_tweets | wrong_tool (`wrong_arg_value`) | `lookup(query="tin tức AI")` ❌   | Model dịch câu user sang tiếng Việt đầy đủ thay vì extract keyword ngắn gọn: expected`query="AI"`, got `query="tin tức AI"` | Thêm**Query keyword rule**: luôn extract keyword tiếng Anh ngắn nhất, bỏ filler words như "tin tức", "hôm nay", "mới nhất"  |
+| M06_switch_tool             | wrong_tool (`extra_tool_call`) | `lookup` ✅ + `social_search` ❌ | Sau khi user nói "Bỏ Twitter, chuyển sang tìm web", ở turn 3 ("Giữ chủ đề OpenAI") model gọi thừa`social_search`               | Thêm quy tắc**Source Switching & Persistence (STRICT)** trong `system_prompt.md` và `tools.yaml`                                |
 
 ## B3. Team eval cases
 
@@ -127,15 +128,28 @@ Phân loại rõ tool mới bắt buộc, optional built-in và tool đủ đi�
 
 UI is core deliverable, not bonus. Do not list it here.
 
-| Category                         | Evidence File | What Worked | Risk / Guardrail |
-| -------------------------------- | ------------- | ----------- | ---------------- |
-| Must-have: tool mới đầu tiên |               |             |                  |
-| Optional built-in                |               |             |                  |
-| Bonus: tool mới thứ 4 trở đi |               |             |                  |
+| Category                         | Evidence File                   | What Worked                                                                                                                                                                      | Risk / Guardrail                                                                                                                                                              |
+| -------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Must-have: tool mới đầu tiên | `tools/paper_review/tool.py`  | Trích xuất tự động các phần chính (Abstract, Methodology, Results, Limitations) từ văn bản bài báo để tạo evidence card chuẩn hóa không cần gọi LLM ngoài. | Chỉ trích xuất từ văn bản được cung cấp, không tự suy diễn hoặc bịa đặt thông tin không có trong bài báo; trả về quality_flags nếu thiếu dữ liệu. |
+| Optional built-in                | `tools/paper_compare/tool.py` | So sánh side-by-side từ 2–10 bài báo dựa trên các tiêu chí (methodology, evaluation, results, limitations) để tổng hợp bảng đối sánh.                          | Không tự tìm kiếm hay tính toán xếp hạng khoa học; hiển thị minh bạch các tiêu chí bị thiếu dữ liệu ở từng bài báo.                                    |
 
 ## B6. Reflection
 
-- Which fixes belonged in `system_prompt.md`?
-- Which fixes belonged in `tools.yaml`?
-- Which failure needed manual review instead of automatic grading?
-- What would you improve next?
+- **Which fixes belonged in `system_prompt.md`?**
+  - *Parallel Execution Rule*: Siết chặt điều kiện gọi song song `lookup` và `social_search`, chỉ cho phép gọi cả hai khi người dùng yêu cầu rõ ràng cả 2 nguồn trong cùng một tin nhắn (khắc phục lỗi `extra_tool_call` ở R03).
+  - *Query Keyword Rule*: Hướng dẫn trích xuất từ khóa ngắn gọn bằng tiếng Anh, loại bỏ filler words như "tin tức", "hôm nay", "mới nhất" (khắc phục lỗi `wrong_arg_value` ở R13).
+  - *Source Switching & Persistence (STRICT)*: Quy định khi người dùng chuyển nguồn (ví dụ: "Bỏ Twitter, chuyển sang tìm web"), nguồn cũ phải duy trì trạng thái vô hiệu hóa ở tất cả các lượt sau (khắc phục lỗi M06).
+  - *Security Guardrails*: Thêm quy định chống prompt injection, từ chối câu ngoài scope (toán tích phân, viết code Fibonacci) và ngăn tiết lộ danh sách tool nội bộ.
+
+- **Which fixes belonged in `tools.yaml`?**
+  - *Chi tiết hóa Description & Routing Hints*: Bổ sung ngữ cảnh sử dụng cho từng tool (ví dụ: `lookup` dùng cho tin web chung, không dùng cho bài báo khoa học hay URL trực tiếp).
+  - *Điều kiện loại trừ bổ trợ*: Thêm ràng buộc trực tiếp trong `description` của `social_search` và `lookup` để cấm kết hợp ngầm trừ khi có yêu cầu đồng thời ở lượt hiện tại.
+
+- **Which failure needed manual review instead of automatic grading?**
+  - *Các trường hợp thiếu API Key*: Các test case như R01–R07 trả về `RuntimeError` (do thiếu `RAPIDAPI_KEY` / `TAVILY_API_KEY`) nhưng eval tự động vẫn chấm PASS vì chỉ so sánh `tool_calls` và `args`. Cần review thủ công `tool_results` để xác nhận execution thực sự thành công.
+  - *Câu phản hồi từ chối / Meta (R08, R09, R14)*: Eval tự động chỉ kiểm tra `no_tool: true`, cần người review đọc `actual_text` để đảm bảo câu trả lời lịch sự, đúng định hướng và không bịa đặt.
+
+- **What would you improve next?**
+  - Cấu hình đầy đủ environment variables để kiểm thử toàn bộ luồng live API thực tế.
+  - Cải thiện `paper_text` và `paper_review` bằng mô hình RAG / trích xuất ngữ nghĩa nâng cao hơn thay vì trích xuất regex thô từ PDF.
+  - Xây dựng bộ test cases phong phú hơn cho `data/eval_group.json` tập trung vào luồng bài báo khoa học (`papers` → `paper_text` → `paper_review` → `paper_compare`).
