@@ -55,7 +55,6 @@ st.markdown(
     """
     <div class="app-header">
         <div class="app-title">🔬 Research <span>Agent</span> — Tool Eval Lab</div>
-        <div class="mock-banner">⚠️ MOCK MODE — UI only, chưa kết nối logic thật</div>
     </div>
     """,
     unsafe_allow_html=True,

@@ -11,15 +11,32 @@ from typing import Any
 def render_version_compare_tab() -> None:
     """
     Render tab Version Compare.
-
-    TODO: Thay mock bằng đọc thật từ filesystem:
-        - Transcripts: glob("transcripts/*.transcript.json")
-        - Runs: glob("runs/*.json") để lấy summary metrics
     """
-    from .mock_data import get_mock_transcripts, get_mock_run_logs
+    from pathlib import Path
+    import json
 
-    transcripts = get_mock_transcripts()
-    runs = get_mock_run_logs()
+    ROOT = Path(__file__).parent.parent
+    transcripts_dir = ROOT / "transcripts"
+    runs_dir = ROOT / "runs"
+
+    transcripts = []
+    if transcripts_dir.exists():
+        for p in sorted(transcripts_dir.glob("*.transcript.json"), key=lambda x: x.stat().st_mtime, reverse=True):
+            try:
+                transcripts.append(json.loads(p.read_text(encoding="utf-8")))
+            except Exception:
+                pass
+
+    runs = []
+    if runs_dir.exists():
+        for p in sorted(runs_dir.glob("*.json")):
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+                # Thêm run_file tương thích UI cũ
+                data["run_file"] = f"runs/{p.name}"
+                runs.append(data)
+            except Exception:
+                pass
 
     st.markdown("## 🔁 Version Compare")
     st.caption("So sánh 2 version side-by-side để thấy cải thiện rõ ràng")

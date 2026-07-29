@@ -13,20 +13,22 @@ from .tool_trace import render_tool_trace
 def render_transcript_tab() -> None:
     """
     Render tab Transcripts.
-
-    TODO: Thay mock bằng đọc thật từ filesystem:
-        from pathlib import Path
-        transcripts_dir = Path(__file__).parent.parent / "transcripts"
-        transcripts = [
-            json.loads(p.read_text(encoding="utf-8"))
-            for p in sorted(transcripts_dir.glob("*.transcript.json"), reverse=True)
-        ]
     """
-    from .mock_data import get_mock_transcripts
-    transcripts = get_mock_transcripts()
+    from pathlib import Path
+    
+    ROOT = Path(__file__).parent.parent
+    transcripts_dir = ROOT / "transcripts"
+    
+    transcripts = []
+    if transcripts_dir.exists():
+        for p in sorted(transcripts_dir.glob("*.transcript.json"), key=lambda x: x.stat().st_mtime, reverse=True):
+            try:
+                transcripts.append(json.loads(p.read_text(encoding="utf-8")))
+            except Exception:
+                pass
 
     st.markdown("## 📋 Transcript Browser")
-    st.caption("Xem lại các phiên chat đã được lưu. TODO: đọc từ `transcripts/*.transcript.json`")
+    st.caption("Xem lại các phiên chat đã được lưu từ thư mục `transcripts/` ")
 
     if not transcripts:
         st.info("Chưa có transcript nào. Hãy chat trước ở tab Chat.")

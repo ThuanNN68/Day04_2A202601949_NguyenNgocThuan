@@ -156,13 +156,15 @@ def render_chat_tab(config: dict) -> None:
 
 def _call_agent(user_input: str, config: dict) -> dict[str, Any]:
     """
-    Gọi agent và thực thi loop thật tương tự chat.py
+    Gọi agent và thực thi loop thật, sau đó ghi transcript JSON chuẩn tương tự chat.py
     """
     from env_loader import load_lab_env
     from providers import make_provider
     from tools import load_tool_declarations, to_openai_tools
-    from chat import run_model_tool_loop, trim_history
+    from chat import run_model_tool_loop, trim_history, write_transcript, safe_slug, now_iso
+    from versioning import build_artifact_version, artifact_version_dict
     from pathlib import Path
+    from datetime import datetime
 
     ROOT = Path(__file__).parent.parent
     load_lab_env(ROOT)
@@ -171,13 +173,19 @@ def _call_agent(user_input: str, config: dict) -> dict[str, Any]:
     provider = make_provider(config["provider"])
     selected_model = config["model"] or getattr(provider, "default_model", None)
 
-    # 2. Đọc file prompt & tools hiện tại
+    # 2. Đọc file prompt & tools hiện tại để build artifact version (và hash prompt/tool)
     system_prompt_path = ROOT / "artifacts" / "system_prompt.md"
     tools_path = ROOT / "artifacts" / "tools.yaml"
 
     system_prompt = system_prompt_path.read_text(encoding="utf-8")
     tool_declarations = load_tool_declarations(tools_path)
-    openai_tools = to_openai_tools(tool_declarations)
+    
+    # Chỉ giữ lại 3 tool được yêu cầu: papers, paper_review, paper_compare
+    allowed_tool_names = {"papers", "paper_review", "paper_compare"}
+    filtered_declarations = [td for td in tool_declarations if td["name"] in allowed_tool_names]
+    openai_tools = to_openai_tools(filtered_declarations)
+    
+    artifact_version = build_artifact_version(config["version"], system_prompt_path, tools_path)
 
     # 3. Chuẩn bị message history
     if "chat_raw_history" not in st.session_state:
@@ -205,7 +213,54 @@ def _call_agent(user_input: str, config: dict) -> dict[str, Any]:
         {"role": "assistant", "content": result["assistant_text"]},
     ]
 
-    # TODO: Khi cần lưu transcript thành file JSON để tab Transcript có thể đọc được:
-    # Bạn có thể gọi thêm logic của write_transcript(...) giống trong chat.py tại đây.
+    # 6. Khởi tạo hoặc cập nhật file Transcript JSON trong phiên chat này
+    transcripts_dir = ROOT / "transcripts"
+    if "current_transcript_path" not in st.session_state:
+        # Nếu là turn đầu tiên, khởi tạo file transcript mới
+        timestamp = datetime.now().strftime("%Y%m%dT%H%M%S%f")
+        transcript_id = "_".join([
+            safe_slug(config["version"]),
+            safe_slug(config["provider"]),
+            timestamp,
+        ])
+        transcript_path = transcripts_dir / f"{transcript_id}.transcript.json"
+        
+        st.session_state.current_transcript_path = str(transcript_path)
+        st.session_state.current_transcript_data = {
+            "transcript_id": transcript_id,
+            **artifact_version_dict(artifact_version),
+            "provider": config["provider"],
+            "model": selected_model,
+            "system_prompt": str(system_prompt_path),
+            "tools": str(tools_path),
+            "history_window": config["history_window"],
+            "max_tool_rounds": config["max_tool_rounds"],
+            "created_at": now_iso(),
+            "updated_at": now_iso(),
+            "turns": [],
+        }
+        st.session_state.current_turn_index = 0
+
+    # Tăng chỉ số lượt chat
+    st.session_state.current_turn_index += 1
+    
+    # Ghi nhận thông tin lượt chat này
+    turn_record = {
+        "turn_index": st.session_state.current_turn_index,
+        "started_at": now_iso(),
+        "user": user_input,
+        "ended_at": now_iso(),
+        "status": result.get("status", "answered"),
+        "assistant_text": result.get("assistant_text", ""),
+        "rounds": result.get("rounds", []),
+        "tool_events": result.get("tool_events", []),
+    }
+    
+    # Append turn và write ra disk
+    st.session_state.current_transcript_data["turns"].append(turn_record)
+    write_transcript(
+        Path(st.session_state.current_transcript_path), 
+        st.session_state.current_transcript_data
+    )
 
     return result
