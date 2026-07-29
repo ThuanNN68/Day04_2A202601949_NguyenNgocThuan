@@ -1,0 +1,425 @@
+{
+  "transcript_id": "v0_openai_20260729T104740908082",
+  "version": "v0",
+  "artifact_version": "v0+p4a18b525d907+t6cdb53d5d7b8",
+  "prompt_hash": "4a18b525d907bdb05dee857337178ea592380df66c806a44d16c856f1954cf65",
+  "tools_hash": "6cdb53d5d7b8de80d60b298b1357f462cedbedfae261d5ba60b08ccc401687c5",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "C:\\project\\vin\\lab4\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\project\\vin\\lab4\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T10:47:40",
+  "updated_at": "2026-07-29T10:50:31",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T10:47:47",
+      "user": "Hi, bạn làm được gì",
+      "status": "answered",
+      "assistant_text": "Tôi có thể giúp bạn tìm kiếm thông tin về tin tức công nghệ, nghiên cứu AI, phân tích mạng xã hội, và nhiều hơn nữa. Nếu bạn có câu hỏi cụ thể hoặc cần tìm kiếm thông tin nào, hãy cho tôi biết!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "Tôi có thể giúp bạn tìm kiếm thông tin về tin tức công nghệ, nghiên cứu AI, phân tích mạng xã hội, và nhiều hơn nữa. Nếu bạn có câu hỏi cụ thể hoặc cần tìm kiếm thông tin nào, hãy cho tôi biết!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-07-29T10:47:50"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-07-29T10:48:26",
+      "user": "bạn giúp tôi tìm paper về cách làm 1 AI agent được kohong",
+      "status": "answered",
+      "assistant_text": "Here are some recent papers related to creating AI agents:\n\n1. **[AI Agents: Evolution, Architecture, and Real-World Applications](http://arxiv.org/abs/2503.12687v1)**  \n   - **Authors**: Naveen Krishnan  \n   - **Summary**: This paper examines the evolution, architecture, and practical applications of AI agents, discussing their development from early rule-based systems to modern sophisticated systems that integrate large language models. It reviews key agent paradigms and proposes a holistic evaluation framework for AI agents.  \n   - **Published**: March 16, 2025  \n   - **[PDF Link](https://arxiv.org/pdf/2503.12687v1)**\n\n2. **[Towards trustworthy agentic AI: a comprehensive survey of safety, robustness, privacy, and system security](http://arxiv.org/abs/2605.23989v1)**  \n   - **Authors**: Jinhu Qi et al.  \n   - **Summary**: This survey focuses on trustworthy agentic AI systems, examining safety, robustness, privacy, and system security. It discusses risks and mitigation strategies for high-risk deployments and outlines open challenges in building trustworthy systems.  \n   - **Published**: May 17, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2605.23989v1)**\n\n3. **[Mapping Human Anti-collusion Mechanisms to Multi-agent AI Systems](http://arxiv.org/abs/2601.00360v3)**  \n   - **Authors**: Jamiu Idowu et al.  \n   - **Summary**: This paper develops a taxonomy of human anti-collusion mechanisms and maps them to potential interventions for multi-agent AI systems, addressing challenges such as attribution and identity fluidity.  \n   - **Published**: January 1, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2601.00360v3)**\n\n4. **[Toward AI VIS Co-Scientists: A General and End-to-End Agent Harness for Solving Complex Data Visualization Tasks](http://arxiv.org/abs/2605.21825v1)**  \n   - **Authors**: Haichao Miao et al.  \n   - **Summary**: This paper presents an end-to-end agentic harness that autonomously designs custom visual analysis applications based on data and high-level task descriptions, contributing to the vision of AI co-scientists.  \n   - **Published**: May 20, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2605.21825v1)**\n\n5. **[Meaningful human control: actionable properties for AI system development](http://arxiv.org/abs/2112.01298v2)**  \n   - **Authors**: Luciano Cavalcante Siebert et al.  \n   - **Summary**: This paper identifies four actionable properties for AI systems to ensure meaningful human control, addressing the challenges of moral responsibility in autonomous systems.  \n   - **Published**: November 25, 2021  \n   - **[PDF Link](https://arxiv.org/pdf/2112.01298v2)**\n\nThese papers cover various aspects of AI agents, including their architecture, safety, and practical applications.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "query": "AI agent",
+                "max_results": 5
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "query": "AI agent",
+                "max_results": 5
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "AI agent",
+                "api_query": "all:AI AND all:agent",
+                "total_results": 11072,
+                "items": [
+                  {
+                    "arxiv_id": "2503.12687v1",
+                    "title": "AI Agents: Evolution, Architecture, and Real-World Applications",
+                    "summary": "This paper examines the evolution, architecture, and practical applications of AI agents from their early, rule-based incarnations to modern sophisticated systems that integrate large language models with dedicated modules for perception, planning, and tool use. Emphasizing both theoretical foundations and real-world deployments, the paper reviews key agent paradigms, discusses limitations of current evaluation benchmarks, and proposes a holistic evaluation framework that balances task effectiveness, efficiency, robustness, and safety. Applications across enterprise, personal assistance, and specialized domains are analyzed, with insights into future research directions for more resilient and adaptive AI agent systems.",
+                    "authors": [
+                      "Naveen Krishnan"
+                    ],
+                    "published": "2025-03-16T23:07:48Z",
+                    "updated": "2025-03-16T23:07:48Z",
+                    "url": "http://arxiv.org/abs/2503.12687v1",
+                    "pdf_url": "https://arxiv.org/pdf/2503.12687v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2605.23989v1",
+                    "title": "Towards trustworthy agentic AI: a comprehensive survey of safety, robustness, privacy, and system security",
+                    "summary": "Agentic AI systems -- Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions -- can execute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This survey provides a focused examination of trustworthy agentic AI through two core dimensions that are critical for high-risk deployments: Safety and Robustness, and Privacy and System Security. For each dimension, we clarify key concepts, identify where risks emerge along the agent workflow, and summarize stage-targeted mitigation strategies. Other trustworthiness aspects (value alignment, transparency, fairness, and accountability) are discussed as relevant context rather than parallel chapters. To support consistent comparison and deployment decisions, we consolidate evaluation into a unified metrics-and-benchmarks hub, emphasizing both outcome and process signals (e.g., constraint violations, trace completeness, and adversarial success rates) and offering scenario-to-metric guidance for release gating. We conclude by outlining open challenges such as self-evolving agents, runtime monitoring and verification, privacy-preserving personalization, and the trust-utility trade-off, and present a case study of real-world security failures in open-source agentic systems. Our goal is to serve as a practical reference for researchers and practitioners building trustworthy agentic systems in high-stakes environments.",
+                    "authors": [
+                      "Jinhu Qi",
+                      "Muzhi Li",
+                      "Jiahong Liu",
+                      "Yuqin Shu",
+                      "Dianzhi Yu",
+                      "Shicheng Ma",
+                      "Wenqian Cui",
+                      "Yiyang Zhao",
+                      "Yiyi Chen",
+                      "Ruoxi Jiang",
+                      "Irwin King",
+                      "Zenglin Xu"
+                    ],
+                    "published": "2026-05-17T10:26:37Z",
+                    "updated": "2026-05-17T10:26:37Z",
+                    "url": "http://arxiv.org/abs/2605.23989v1",
+                    "pdf_url": "https://arxiv.org/pdf/2605.23989v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.CL",
+                      "cs.CR"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2601.00360v3",
+                    "title": "Mapping Human Anti-collusion Mechanisms to Multi-agent AI Systems",
+                    "summary": "As multi-agent AI systems become increasingly autonomous, evidence shows they can develop collusive strategies similar to those long observed in human markets and institutions. While human domains have accumulated centuries of anti-collusion mechanisms, it remains unclear how these can be adapted to AI settings. This paper addresses that gap by (i) developing a taxonomy of human anti-collusion mechanisms, including sanctions, leniency & whistleblowing, monitoring & auditing, market design, and governance and (ii) mapping them to potential interventions for multi-agent AI systems. For each mechanism, we propose implementation approaches. We also highlight open challenges, such as the attribution problem (difficulty attributing emergent coordination to specific agents), identity fluidity (agents being easily forked or modified), the boundary problem (distinguishing beneficial cooperation from harmful collusion), and adversarial adaptation (agents learning to evade detection).",
+                    "authors": [
+                      "Jamiu Idowu",
+                      "Ahmed Almasoud",
+                      "Ayman Alfahid"
+                    ],
+                    "published": "2026-01-01T14:30:37Z",
+                    "updated": "2026-05-18T12:03:54Z",
+                    "url": "http://arxiv.org/abs/2601.00360v3",
+                    "pdf_url": "https://arxiv.org/pdf/2601.00360v3",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.MA",
+                    "categories": [
+                      "cs.MA",
+                      "cs.AI",
+                      "cs.CY"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2605.21825v1",
+                    "title": "Toward AI VIS Co-Scientists: A General and End-to-End Agent Harness for Solving Complex Data Visualization Tasks",
+                    "summary": "The ability to inspect, interpret, and communicate complex data is crucial for virtually any scientific endeavor, but often requires significant expertise outside the core domain ranging from data management and analysis to visualization design and implementation. We present an end-to-end agentic harness that, based on only the data and a high level description of the tasks, independently designs custom visual analysis applications (VIS apps). This represents an important step towards a general AI co-scientist envisioned by many as an autonomous system that can autonomously execute long horizon tasks based on high-level directions. Our proposed VIS co-scientist is an essential component of this broader AI co-scientist vision: a harness that can autonomously analyze data and design visualization solutions using a collection of agents and specialized skills that coordinate exploratory analysis, plan, configure the environment, implement, validate the interface, and most importantly evaluate the overall task completion. Each stage produces document and instruction artifacts that guide downstream work and enable iterative refinement. We validate this approach on IEEE SciVis Contests spanning multiple science and engineering fields. These contests serve as ideal proving grounds because they encode real-world complexity: ambiguous requirements, diverse data modalities, design trade-offs, and task-driven validation. Given only the data and target tasks, our system autonomously produces functional single-page VIS Apps with verified linked-view behavior, highly customized to domain experts' specified tasks and needs.",
+                    "authors": [
+                      "Haichao Miao",
+                      "Zhimin Li",
+                      "Kuangshi Ai",
+                      "Kaiyuan Tang",
+                      "Chaoli Wang",
+                      "Peer-Timo Bremer",
+                      "Shusen Liu"
+                    ],
+                    "published": "2026-05-20T23:49:28Z",
+                    "updated": "2026-05-20T23:49:28Z",
+                    "url": "http://arxiv.org/abs/2605.21825v1",
+                    "pdf_url": "https://arxiv.org/pdf/2605.21825v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.HC"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2112.01298v2",
+                    "title": "Meaningful human control: actionable properties for AI system development",
+                    "summary": "How can humans remain in control of artificial intelligence (AI)-based systems designed to perform tasks autonomously? Such systems are increasingly ubiquitous, creating benefits - but also undesirable situations where moral responsibility for their actions cannot be properly attributed to any particular person or group. The concept of meaningful human control has been proposed to address responsibility gaps and mitigate them by establishing conditions that enable a proper attribution of responsibility for humans; however, clear requirements for researchers, designers, and engineers are yet inexistent, making the development of AI-based systems that remain under meaningful human control challenging. In this paper, we address the gap between philosophical theory and engineering practice by identifying, through an iterative process of abductive thinking, four actionable properties for AI-based systems under meaningful human control, which we discuss making use of two applications scenarios: automated vehicles and AI-based hiring. First, a system in which humans and AI algorithms interact should have an explicitly defined domain of morally loaded situations within which the system ought to operate. Second, humans and AI agents within the system should have appropriate and mutually compatible representations. Third, responsibility attributed to a human should be commensurate with that human's ability and authority to control the system. Fourth, there should be explicit links between the actions of the AI agents and actions of humans who are aware of their moral responsibility. We argue that these four properties will support practically-minded professionals to take concrete steps toward designing and engineering for AI systems that facilitate meaningful human control.",
+                    "authors": [
+                      "Luciano Cavalcante Siebert",
+                      "Maria Luce Lupetti",
+                      "Evgeni Aizenberg",
+                      "Niek Beckers",
+                      "Arkady Zgonnikov",
+                      "Herman Veluwenkamp",
+                      "David Abbink",
+                      "Elisa Giaccardi",
+                      "Geert-Jan Houben",
+                      "Catholijn M. Jonker",
+                      "Jeroen van den Hoven",
+                      "Deborah Forster",
+                      "Reginald L. Lagendijk"
+                    ],
+                    "published": "2021-11-25T11:05:37Z",
+                    "updated": "2022-05-19T15:28:01Z",
+                    "url": "http://arxiv.org/abs/2112.01298v2",
+                    "pdf_url": "https://arxiv.org/pdf/2112.01298v2",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CY",
+                    "categories": [
+                      "cs.CY",
+                      "cs.AI"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Here are some recent papers related to creating AI agents:\n\n1. **[AI Agents: Evolution, Architecture, and Real-World Applications](http://arxiv.org/abs/2503.12687v1)**  \n   - **Authors**: Naveen Krishnan  \n   - **Summary**: This paper examines the evolution, architecture, and practical applications of AI agents, discussing their development from early rule-based systems to modern sophisticated systems that integrate large language models. It reviews key agent paradigms and proposes a holistic evaluation framework for AI agents.  \n   - **Published**: March 16, 2025  \n   - **[PDF Link](https://arxiv.org/pdf/2503.12687v1)**\n\n2. **[Towards trustworthy agentic AI: a comprehensive survey of safety, robustness, privacy, and system security](http://arxiv.org/abs/2605.23989v1)**  \n   - **Authors**: Jinhu Qi et al.  \n   - **Summary**: This survey focuses on trustworthy agentic AI systems, examining safety, robustness, privacy, and system security. It discusses risks and mitigation strategies for high-risk deployments and outlines open challenges in building trustworthy systems.  \n   - **Published**: May 17, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2605.23989v1)**\n\n3. **[Mapping Human Anti-collusion Mechanisms to Multi-agent AI Systems](http://arxiv.org/abs/2601.00360v3)**  \n   - **Authors**: Jamiu Idowu et al.  \n   - **Summary**: This paper develops a taxonomy of human anti-collusion mechanisms and maps them to potential interventions for multi-agent AI systems, addressing challenges such as attribution and identity fluidity.  \n   - **Published**: January 1, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2601.00360v3)**\n\n4. **[Toward AI VIS Co-Scientists: A General and End-to-End Agent Harness for Solving Complex Data Visualization Tasks](http://arxiv.org/abs/2605.21825v1)**  \n   - **Authors**: Haichao Miao et al.  \n   - **Summary**: This paper presents an end-to-end agentic harness that autonomously designs custom visual analysis applications based on data and high-level task descriptions, contributing to the vision of AI co-scientists.  \n   - **Published**: May 20, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2605.21825v1)**\n\n5. **[Meaningful human control: actionable properties for AI system development](http://arxiv.org/abs/2112.01298v2)**  \n   - **Authors**: Luciano Cavalcante Siebert et al.  \n   - **Summary**: This paper identifies four actionable properties for AI systems to ensure meaningful human control, addressing the challenges of moral responsibility in autonomous systems.  \n   - **Published**: November 25, 2021  \n   - **[PDF Link](https://arxiv.org/pdf/2112.01298v2)**\n\nThese papers cover various aspects of AI agents, including their architecture, safety, and practical applications.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "AI agent",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "AI agent",
+            "api_query": "all:AI AND all:agent",
+            "total_results": 11072,
+            "items": [
+              {
+                "arxiv_id": "2503.12687v1",
+                "title": "AI Agents: Evolution, Architecture, and Real-World Applications",
+                "summary": "This paper examines the evolution, architecture, and practical applications of AI agents from their early, rule-based incarnations to modern sophisticated systems that integrate large language models with dedicated modules for perception, planning, and tool use. Emphasizing both theoretical foundations and real-world deployments, the paper reviews key agent paradigms, discusses limitations of current evaluation benchmarks, and proposes a holistic evaluation framework that balances task effectiveness, efficiency, robustness, and safety. Applications across enterprise, personal assistance, and specialized domains are analyzed, with insights into future research directions for more resilient and adaptive AI agent systems.",
+                "authors": [
+                  "Naveen Krishnan"
+                ],
+                "published": "2025-03-16T23:07:48Z",
+                "updated": "2025-03-16T23:07:48Z",
+                "url": "http://arxiv.org/abs/2503.12687v1",
+                "pdf_url": "https://arxiv.org/pdf/2503.12687v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2605.23989v1",
+                "title": "Towards trustworthy agentic AI: a comprehensive survey of safety, robustness, privacy, and system security",
+                "summary": "Agentic AI systems -- Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions -- can execute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This survey provides a focused examination of trustworthy agentic AI through two core dimensions that are critical for high-risk deployments: Safety and Robustness, and Privacy and System Security. For each dimension, we clarify key concepts, identify where risks emerge along the agent workflow, and summarize stage-targeted mitigation strategies. Other trustworthiness aspects (value alignment, transparency, fairness, and accountability) are discussed as relevant context rather than parallel chapters. To support consistent comparison and deployment decisions, we consolidate evaluation into a unified metrics-and-benchmarks hub, emphasizing both outcome and process signals (e.g., constraint violations, trace completeness, and adversarial success rates) and offering scenario-to-metric guidance for release gating. We conclude by outlining open challenges such as self-evolving agents, runtime monitoring and verification, privacy-preserving personalization, and the trust-utility trade-off, and present a case study of real-world security failures in open-source agentic systems. Our goal is to serve as a practical reference for researchers and practitioners building trustworthy agentic systems in high-stakes environments.",
+                "authors": [
+                  "Jinhu Qi",
+                  "Muzhi Li",
+                  "Jiahong Liu",
+                  "Yuqin Shu",
+                  "Dianzhi Yu",
+                  "Shicheng Ma",
+                  "Wenqian Cui",
+                  "Yiyang Zhao",
+                  "Yiyi Chen",
+                  "Ruoxi Jiang",
+                  "Irwin King",
+                  "Zenglin Xu"
+                ],
+                "published": "2026-05-17T10:26:37Z",
+                "updated": "2026-05-17T10:26:37Z",
+                "url": "http://arxiv.org/abs/2605.23989v1",
+                "pdf_url": "https://arxiv.org/pdf/2605.23989v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CL",
+                  "cs.CR"
+                ]
+              },
+              {
+                "arxiv_id": "2601.00360v3",
+                "title": "Mapping Human Anti-collusion Mechanisms to Multi-agent AI Systems",
+                "summary": "As multi-agent AI systems become increasingly autonomous, evidence shows they can develop collusive strategies similar to those long observed in human markets and institutions. While human domains have accumulated centuries of anti-collusion mechanisms, it remains unclear how these can be adapted to AI settings. This paper addresses that gap by (i) developing a taxonomy of human anti-collusion mechanisms, including sanctions, leniency & whistleblowing, monitoring & auditing, market design, and governance and (ii) mapping them to potential interventions for multi-agent AI systems. For each mechanism, we propose implementation approaches. We also highlight open challenges, such as the attribution problem (difficulty attributing emergent coordination to specific agents), identity fluidity (agents being easily forked or modified), the boundary problem (distinguishing beneficial cooperation from harmful collusion), and adversarial adaptation (agents learning to evade detection).",
+                "authors": [
+                  "Jamiu Idowu",
+                  "Ahmed Almasoud",
+                  "Ayman Alfahid"
+                ],
+                "published": "2026-01-01T14:30:37Z",
+                "updated": "2026-05-18T12:03:54Z",
+                "url": "http://arxiv.org/abs/2601.00360v3",
+                "pdf_url": "https://arxiv.org/pdf/2601.00360v3",
+                "source": "arxiv.org",
+                "primary_category": "cs.MA",
+                "categories": [
+                  "cs.MA",
+                  "cs.AI",
+                  "cs.CY"
+                ]
+              },
+              {
+                "arxiv_id": "2605.21825v1",
+                "title": "Toward AI VIS Co-Scientists: A General and End-to-End Agent Harness for Solving Complex Data Visualization Tasks",
+                "summary": "The ability to inspect, interpret, and communicate complex data is crucial for virtually any scientific endeavor, but often requires significant expertise outside the core domain ranging from data management and analysis to visualization design and implementation. We present an end-to-end agentic harness that, based on only the data and a high level description of the tasks, independently designs custom visual analysis applications (VIS apps). This represents an important step towards a general AI co-scientist envisioned by many as an autonomous system that can autonomously execute long horizon tasks based on high-level directions. Our proposed VIS co-scientist is an essential component of this broader AI co-scientist vision: a harness that can autonomously analyze data and design visualization solutions using a collection of agents and specialized skills that coordinate exploratory analysis, plan, configure the environment, implement, validate the interface, and most importantly evaluate the overall task completion. Each stage produces document and instruction artifacts that guide downstream work and enable iterative refinement. We validate this approach on IEEE SciVis Contests spanning multiple science and engineering fields. These contests serve as ideal proving grounds because they encode real-world complexity: ambiguous requirements, diverse data modalities, design trade-offs, and task-driven validation. Given only the data and target tasks, our system autonomously produces functional single-page VIS Apps with verified linked-view behavior, highly customized to domain experts' specified tasks and needs.",
+                "authors": [
+                  "Haichao Miao",
+                  "Zhimin Li",
+                  "Kuangshi Ai",
+                  "Kaiyuan Tang",
+                  "Chaoli Wang",
+                  "Peer-Timo Bremer",
+                  "Shusen Liu"
+                ],
+                "published": "2026-05-20T23:49:28Z",
+                "updated": "2026-05-20T23:49:28Z",
+                "url": "http://arxiv.org/abs/2605.21825v1",
+                "pdf_url": "https://arxiv.org/pdf/2605.21825v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.HC"
+                ]
+              },
+              {
+                "arxiv_id": "2112.01298v2",
+                "title": "Meaningful human control: actionable properties for AI system development",
+                "summary": "How can humans remain in control of artificial intelligence (AI)-based systems designed to perform tasks autonomously? Such systems are increasingly ubiquitous, creating benefits - but also undesirable situations where moral responsibility for their actions cannot be properly attributed to any particular person or group. The concept of meaningful human control has been proposed to address responsibility gaps and mitigate them by establishing conditions that enable a proper attribution of responsibility for humans; however, clear requirements for researchers, designers, and engineers are yet inexistent, making the development of AI-based systems that remain under meaningful human control challenging. In this paper, we address the gap between philosophical theory and engineering practice by identifying, through an iterative process of abductive thinking, four actionable properties for AI-based systems under meaningful human control, which we discuss making use of two applications scenarios: automated vehicles and AI-based hiring. First, a system in which humans and AI algorithms interact should have an explicitly defined domain of morally loaded situations within which the system ought to operate. Second, humans and AI agents within the system should have appropriate and mutually compatible representations. Third, responsibility attributed to a human should be commensurate with that human's ability and authority to control the system. Fourth, there should be explicit links between the actions of the AI agents and actions of humans who are aware of their moral responsibility. We argue that these four properties will support practically-minded professionals to take concrete steps toward designing and engineering for AI systems that facilitate meaningful human control.",
+                "authors": [
+                  "Luciano Cavalcante Siebert",
+                  "Maria Luce Lupetti",
+                  "Evgeni Aizenberg",
+                  "Niek Beckers",
+                  "Arkady Zgonnikov",
+                  "Herman Veluwenkamp",
+                  "David Abbink",
+                  "Elisa Giaccardi",
+                  "Geert-Jan Houben",
+                  "Catholijn M. Jonker",
+                  "Jeroen van den Hoven",
+                  "Deborah Forster",
+                  "Reginald L. Lagendijk"
+                ],
+                "published": "2021-11-25T11:05:37Z",
+                "updated": "2022-05-19T15:28:01Z",
+                "url": "http://arxiv.org/abs/2112.01298v2",
+                "pdf_url": "https://arxiv.org/pdf/2112.01298v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.CY",
+                "categories": [
+                  "cs.CY",
+                  "cs.AI"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ],
+      "ended_at": "2026-07-29T10:48:38"
+    },
+    {
+      "turn_index": 3,
+      "started_at": "2026-07-29T10:49:52",
+      "user": "bạn có thể gửi cho tôi nội dung của bài báo Meaningful human control không",
+      "status": "answered",
+      "assistant_text": "Here is a summary of the paper titled **\"Meaningful human control: actionable properties for AI system development\"** by Luciano Cavalcante Siebert et al.:\n\n### Summary\nThe paper addresses the challenge of ensuring that humans remain in control of AI-based systems designed to perform tasks autonomously. As these systems become more prevalent, they can create situations where moral responsibility for their actions cannot be easily attributed to any individual or group. The authors propose the concept of \"meaningful human control\" to bridge the gap between philosophical theory and engineering practice.\n\n### Key Points\n1. **Actionable Properties**: The authors identify four actionable properties for AI systems to ensure meaningful human control:\n   - **Defined Domain**: The system should operate within a clearly defined domain of morally loaded situations.\n   - **Compatible Representations**: Humans and AI agents should have appropriate and mutually compatible representations.\n   - **Commensurate Responsibility**: Responsibility attributed to a human should align with their ability and authority to control the system.\n   - **Explicit Links**: There should be clear connections between the actions of AI agents and the actions of humans who are aware of their moral responsibilities.\n\n2. **Application Scenarios**: The paper discusses these properties using two application scenarios: automated vehicles and AI-based hiring.\n\n3. **Ethical Considerations**: The authors emphasize the need for a systemic, socio-technical perspective in designing AI systems to facilitate moral responsibility, considering the complex interactions between human and AI agents.\n\n### Conclusion\nThe paper argues that these four properties will help professionals design and engineer AI systems that support meaningful human control, ultimately addressing the ethical implications of deploying AI in society.\n\nFor more details, you can access the full paper [here](https://arxiv.org/abs/2112.01298v2).",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "paper_text",
+              "args": {
+                "arxiv_url": "http://arxiv.org/abs/2112.01298v2"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "paper_text",
+              "args": {
+                "arxiv_url": "http://arxiv.org/abs/2112.01298v2"
+              },
+              "result": {
+                "tool": "get_arxiv_paper_text",
+                "arxiv_id": "2112.01298v2",
+                "url": "https://arxiv.org/abs/2112.01298v2",
+                "pdf_url": "https://arxiv.org/pdf/2112.01298v2.pdf",
+                "pdf_path": "C:\\project\\vin\\lab4\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\arxiv_papers\\2112.01298v2.pdf",
+                "txt_path": "C:\\project\\vin\\lab4\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\arxiv_papers\\2112.01298v2.txt",
+                "page_count": 48,
+                "pages_read": 5,
+                "chars_returned": 8000,
+                "items": [
+                  {
+                    "title": "arXiv paper 2112.01298v2",
+                    "url": "https://arxiv.org/abs/2112.01298v2",
+                    "source": "arxiv.org",
+                    "summary": "Meaningful human control: actionable\nproperties for AI system development\nLuciano Cavalcante Siebert 1,2*†, Maria Luce\nLupetti1,3,1†, Evgeni Aizenberg 1,2†, Niek Beckers 1,4†, Arkady\nZgonnikov1,4†, Herman Veluwenkamp1,5, David\nAbbink1,4, Elisa Giaccardi 1,3, Geert-Jan Houben 1,2, Catholijn\nM. Jonker 1,2, Jeroen van den Hoven 1,5, Deborah Forster 1\nand Reginald L. Lagendijk 1,2\n1AiTech Interdisciplinary Research Program on Meaningful\nHuman Control, Delft University of Technology, Delft, The\nNetherlands.\n2Faculty of Electrical Engineering, Mathematics and Computer\nScience, Delft University of Technology, Delft, The Netherlands.\n3Faculty of Industrial Design Engineering, Delft University of\nTechnology, Delft, The Netherlands.\n4Faculty of Mechanical, Maritime and Materials Engineering,\nDelft University of Technology, Delft, The Netherlands.\n5Faculty of Technology, Policy and Management, Delft University\nof Technology, Delft, The Netherlands.\n*Corresponding author(s). E-mail(s):\nL.CavalcanteSiebert@tudelft.nl;\n†Co-ﬁrst authors.\nAbstract\nHow can humans remain in control of artiﬁcial intelligence (AI)-based\nsystems designed to perform tasks autonomously? Such systems are\nincreasingly ubiquitous, creating beneﬁts - but also undesirable situa-\ntions where moral responsibility for their actions cannot be properly\n1\narXiv:2112.01298v2  [cs.CY]  19 May 2022\n\n2 Meaningful human control: actionable properties for AI system development\nattributed to any particular person or group. The concept of mean-\ningful human control has been proposed to address responsibility gaps\nand mitigate them by establishing conditions that enable a proper\nattribution of responsibility for humans; however, clear requirements\nfor researchers, designers, and engineers are yet inexistent, making the\ndevelopment of AI-based systems that remain under meaningful human\ncontrol challenging. In this paper, we address the gap between philo-\nsophical theory and engineering practice by identifying, through an\niterative process of abductive thinking, four actionable properties for\nAI-based systems under meaningful human control, which we discuss\nmaking use of two applications scenarios: automated vehicles and AI-\nbased hiring. First, a system in which humans and AI algorithms interact\nshould have an explicitly deﬁned domain of morally loaded situations\nwithin which the system ought to operate. Second, humans and AI\nagents within the system should have appropriate and mutually com-\npatible representations. Third, responsibility attributed to a human\nshould be commensurate with that human’s ability and authority to\ncontrol the system. Fourth, there should be explicit links between the\nactions of the AI agents and actions of humans who are aware of their\nmoral responsibility. We argue that these four properties will support\npractically-minded professionals to take concrete steps toward designing\nand engineering for AI systems that facilitate meaningful human control.\nKeywords: Artiﬁcial intelligence, AI Ethics, Meaningful Human Control,\nMoral responsibility, Socio-technical systems\n1 Introduction\nDeploying AI algorithms in human-inhabited environments comes with the risk\nof inappropriate, undesirable, or unpredictable consequences [1, 2]. The misin-\nterpreted skills of AI systems, combined with their rapid impact in public and\nprivate spheres of life, can lead to situations with a clear misalignment between\nhuman moral values and societal norms [3–6], and where moral responsibility\nfor such undesired impacts can often not be properly attributed to any person\n[7].\nHow can designers, users, or other human agents be morally responsible\nfor systems\n\nMeaningful human control: actionable properties for AI system development 3\nthat are designed to perform tasks, learn, and adapt without direct human\ncontrol? The strong technical drive towards achieving systems which can act\nindependently from human control in more scenarios, does not necessarily\ninclude considerations about the socio-technical consequences of implementing\nthese systems, especially in terms of facilitating moral responsibility. In agree-\nment with the hybrid intelligence community [8], we believe a stronger focus on\nhuman-AI systems (systems in which humans and AI algorithms interact dur-\ning operation) is needed to address the complex design issue of ethical use and\nimplementation of AI [9]. The very features that make AI algorithms useful\ncomplicate their assessment and predictability in the complex socio-technical\ncontext in which they operate - which changes over time. As a result, all sys-\ntems based on AI, especially those with so-called higher “levels of autonomy”1,\ncan and should be designed for appropriate human responsibility [11]. The holy\ngrail is to design these systems in a manner that can mitigate the occurrence\nof situations that the manufacturer was in principle unable to anticipate, and\nthat users were not able to appropriately inﬂuence or even realize.\nThe problem of designing for human responsibility over human-AI systems\nis challenging because such systems operate in complex social infrastruc-\ntures that include organizational processes with both human-to-human and\nhuman-AI interactions, policy, and law. Designing for moral responsibility\ntherefore requires a systemic, socio-technical perspective that jointly consid-\ners the interaction between all these elements [12]. This fundamental challenge\nof intertwined social, physical, and technical infrastructures does not exclu-\nsively concern AI: societies have settled on morally acceptable solutions for\nubiquitous technology in other domains, such as medicine and aviation safety.\n1“Level of autonomy” is a complex construct. In line with Bradshaw’s seven deadly myths of\nautonomy [10], we acknowledge that measuring autonomy on a single ordered scale of increas-\ning levels is insuﬃcient because it lacks context, is not human-centred, and disregard functional\ndiﬀerences, among other reasons.\n\n4 Meaningful human control: actionable properties for AI system development\nHowever, these solutions do not readily generalize to systems based on\nAI algorithms, due to properties such as: (1) learning abilities; (2) black-box\nnature; (3) impact on many stakeholders (even those not using the systems\nthemselves); and (4) autonomous or semi-autonomous decision-making fea-\ntures. First, AI agents can demonstrate novel behavior through learning from\nhistorical data and continuous learning via interactions with the world and\nother agents. Because the world we are concerned with is an open system with\nrespect to the the agents’ perceptions and actions, the behavior of human-\nAI systems cannot be predicted with precision over time [13, 14]. Second, the\nagent’s decision-making process may be diﬃcult to explain and predict, even\nfor its programmer [15], complicating responsibility attribution for its conse-\nquences. Third, as AI agents may interact with multiple users, which have\ndiﬀerent levels of expertise, diﬀerent preferences, and understanding, responsi-\nbility can become a diﬀuse concept for which no one feels morally engaged. This\nmay be further exacerbated when AI agent’s autonomous features are overesti-\nmated by those interacting with it. As the system’s design process may overlap\nwith implementation and use [16], interactions may end up including humans\nwho did not choose to be involved in its use, as in the case of sidewalk pedes-\ntrians interacting with automated vehicles. Fourth, as systems based on AI\nwith increasing autonomous decision-making features operate with reduced or\neven no meaningful supervision, undesirable impacts might be perceived only\nin hindsight. Learning abilities, opacity, interaction with many stakeholders,\nand autonomous or semi-autonomous features are just four of the prominent\nissues, which emerge as algorithms interact with social environments.\nTo design for moral responsibility and human control is particularly impor-\ntant as quick development and immediate d"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Here is a summary of the paper titled **\"Meaningful human control: actionable properties for AI system development\"** by Luciano Cavalcante Siebert et al.:\n\n### Summary\nThe paper addresses the challenge of ensuring that humans remain in control of AI-based systems designed to perform tasks autonomously. As these systems become more prevalent, they can create situations where moral responsibility for their actions cannot be easily attributed to any individual or group. The authors propose the concept of \"meaningful human control\" to bridge the gap between philosophical theory and engineering practice.\n\n### Key Points\n1. **Actionable Properties**: The authors identify four actionable properties for AI systems to ensure meaningful human control:\n   - **Defined Domain**: The system should operate within a clearly defined domain of morally loaded situations.\n   - **Compatible Representations**: Humans and AI agents should have appropriate and mutually compatible representations.\n   - **Commensurate Responsibility**: Responsibility attributed to a human should align with their ability and authority to control the system.\n   - **Explicit Links**: There should be clear connections between the actions of AI agents and the actions of humans who are aware of their moral responsibilities.\n\n2. **Application Scenarios**: The paper discusses these properties using two application scenarios: automated vehicles and AI-based hiring.\n\n3. **Ethical Considerations**: The authors emphasize the need for a systemic, socio-technical perspective in designing AI systems to facilitate moral responsibility, considering the complex interactions between human and AI agents.\n\n### Conclusion\nThe paper argues that these four properties will help professionals design and engineer AI systems that support meaningful human control, ultimately addressing the ethical implications of deploying AI in society.\n\nFor more details, you can access the full paper [here](https://arxiv.org/abs/2112.01298v2).",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "paper_text",
+          "args": {
+            "arxiv_url": "http://arxiv.org/abs/2112.01298v2"
+          },
+          "result": {
+            "tool": "get_arxiv_paper_text",
+            "arxiv_id": "2112.01298v2",
+            "url": "https://arxiv.org/abs/2112.01298v2",
+            "pdf_url": "https://arxiv.org/pdf/2112.01298v2.pdf",
+            "pdf_path": "C:\\project\\vin\\lab4\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\arxiv_papers\\2112.01298v2.pdf",
+            "txt_path": "C:\\project\\vin\\lab4\\Day04_2A202601949_NguyenNgocThuan\\starter_v0\\arxiv_papers\\2112.01298v2.txt",
+            "page_count": 48,
+            "pages_read": 5,
+            "chars_returned": 8000,
+            "items": [
+              {
+                "title": "arXiv paper 2112.01298v2",
+                "url": "https://arxiv.org/abs/2112.01298v2",
+                "source": "arxiv.org",
+                "summary": "Meaningful human control: actionable\nproperties for AI system development\nLuciano Cavalcante Siebert 1,2*†, Maria Luce\nLupetti1,3,1†, Evgeni Aizenberg 1,2†, Niek Beckers 1,4†, Arkady\nZgonnikov1,4†, Herman Veluwenkamp1,5, David\nAbbink1,4, Elisa Giaccardi 1,3, Geert-Jan Houben 1,2, Catholijn\nM. Jonker 1,2, Jeroen van den Hoven 1,5, Deborah Forster 1\nand Reginald L. Lagendijk 1,2\n1AiTech Interdisciplinary Research Program on Meaningful\nHuman Control, Delft University of Technology, Delft, The\nNetherlands.\n2Faculty of Electrical Engineering, Mathematics and Computer\nScience, Delft University of Technology, Delft, The Netherlands.\n3Faculty of Industrial Design Engineering, Delft University of\nTechnology, Delft, The Netherlands.\n4Faculty of Mechanical, Maritime and Materials Engineering,\nDelft University of Technology, Delft, The Netherlands.\n5Faculty of Technology, Policy and Management, Delft University\nof Technology, Delft, The Netherlands.\n*Corresponding author(s). E-mail(s):\nL.CavalcanteSiebert@tudelft.nl;\n†Co-ﬁrst authors.\nAbstract\nHow can humans remain in control of artiﬁcial intelligence (AI)-based\nsystems designed to perform tasks autonomously? Such systems are\nincreasingly ubiquitous, creating beneﬁts - but also undesirable situa-\ntions where moral responsibility for their actions cannot be properly\n1\narXiv:2112.01298v2  [cs.CY]  19 May 2022\n\n2 Meaningful human control: actionable properties for AI system development\nattributed to any particular person or group. The concept of mean-\ningful human control has been proposed to address responsibility gaps\nand mitigate them by establishing conditions that enable a proper\nattribution of responsibility for humans; however, clear requirements\nfor researchers, designers, and engineers are yet inexistent, making the\ndevelopment of AI-based systems that remain under meaningful human\ncontrol challenging. In this paper, we address the gap between philo-\nsophical theory and engineering practice by identifying, through an\niterative process of abductive thinking, four actionable properties for\nAI-based systems under meaningful human control, which we discuss\nmaking use of two applications scenarios: automated vehicles and AI-\nbased hiring. First, a system in which humans and AI algorithms interact\nshould have an explicitly deﬁned domain of morally loaded situations\nwithin which the system ought to operate. Second, humans and AI\nagents within the system should have appropriate and mutually com-\npatible representations. Third, responsibility attributed to a human\nshould be commensurate with that human’s ability and authority to\ncontrol the system. Fourth, there should be explicit links between the\nactions of the AI agents and actions of humans who are aware of their\nmoral responsibility. We argue that these four properties will support\npractically-minded professionals to take concrete steps toward designing\nand engineering for AI systems that facilitate meaningful human control.\nKeywords: Artiﬁcial intelligence, AI Ethics, Meaningful Human Control,\nMoral responsibility, Socio-technical systems\n1 Introduction\nDeploying AI algorithms in human-inhabited environments comes with the risk\nof inappropriate, undesirable, or unpredictable consequences [1, 2]. The misin-\nterpreted skills of AI systems, combined with their rapid impact in public and\nprivate spheres of life, can lead to situations with a clear misalignment between\nhuman moral values and societal norms [3–6], and where moral responsibility\nfor such undesired impacts can often not be properly attributed to any person\n[7].\nHow can designers, users, or other human agents be morally responsible\nfor systems\n\nMeaningful human control: actionable properties for AI system development 3\nthat are designed to perform tasks, learn, and adapt without direct human\ncontrol? The strong technical drive towards achieving systems which can act\nindependently from human control in more scenarios, does not necessarily\ninclude considerations about the socio-technical consequences of implementing\nthese systems, especially in terms of facilitating moral responsibility. In agree-\nment with the hybrid intelligence community [8], we believe a stronger focus on\nhuman-AI systems (systems in which humans and AI algorithms interact dur-\ning operation) is needed to address the complex design issue of ethical use and\nimplementation of AI [9]. The very features that make AI algorithms useful\ncomplicate their assessment and predictability in the complex socio-technical\ncontext in which they operate - which changes over time. As a result, all sys-\ntems based on AI, especially those with so-called higher “levels of autonomy”1,\ncan and should be designed for appropriate human responsibility [11]. The holy\ngrail is to design these systems in a manner that can mitigate the occurrence\nof situations that the manufacturer was in principle unable to anticipate, and\nthat users were not able to appropriately inﬂuence or even realize.\nThe problem of designing for human responsibility over human-AI systems\nis challenging because such systems operate in complex social infrastruc-\ntures that include organizational processes with both human-to-human and\nhuman-AI interactions, policy, and law. Designing for moral responsibility\ntherefore requires a systemic, socio-technical perspective that jointly consid-\ners the interaction between all these elements [12]. This fundamental challenge\nof intertwined social, physical, and technical infrastructures does not exclu-\nsively concern AI: societies have settled on morally acceptable solutions for\nubiquitous technology in other domains, such as medicine and aviation safety.\n1“Level of autonomy” is a complex construct. In line with Bradshaw’s seven deadly myths of\nautonomy [10], we acknowledge that measuring autonomy on a single ordered scale of increas-\ning levels is insuﬃcient because it lacks context, is not human-centred, and disregard functional\ndiﬀerences, among other reasons.\n\n4 Meaningful human control: actionable properties for AI system development\nHowever, these solutions do not readily generalize to systems based on\nAI algorithms, due to properties such as: (1) learning abilities; (2) black-box\nnature; (3) impact on many stakeholders (even those not using the systems\nthemselves); and (4) autonomous or semi-autonomous decision-making fea-\ntures. First, AI agents can demonstrate novel behavior through learning from\nhistorical data and continuous learning via interactions with the world and\nother agents. Because the world we are concerned with is an open system with\nrespect to the the agents’ perceptions and actions, the behavior of human-\nAI systems cannot be predicted with precision over time [13, 14]. Second, the\nagent’s decision-making process may be diﬃcult to explain and predict, even\nfor its programmer [15], complicating responsibility attribution for its conse-\nquences. Third, as AI agents may interact with multiple users, which have\ndiﬀerent levels of expertise, diﬀerent preferences, and understanding, responsi-\nbility can become a diﬀuse concept for which no one feels morally engaged. This\nmay be further exacerbated when AI agent’s autonomous features are overesti-\nmated by those interacting with it. As the system’s design process may overlap\nwith implementation and use [16], interactions may end up including humans\nwho did not choose to be involved in its use, as in the case of sidewalk pedes-\ntrians interacting with automated vehicles. Fourth, as systems based on AI\nwith increasing autonomous decision-making features operate with reduced or\neven no meaningful supervision, undesirable impacts might be perceived only\nin hindsight. Learning abilities, opacity, interaction with many stakeholders,\nand autonomous or semi-autonomous features are just four of the prominent\nissues, which emerge as algorithms interact with social environments.\nTo design for moral responsibility and human control is particularly impor-\ntant as quick development and immediate d"
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-07-29T10:50:11"
+    }
+  ]
+}
